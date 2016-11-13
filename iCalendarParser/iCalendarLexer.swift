@@ -50,7 +50,23 @@ extension Token {
 }
 
 struct Scanner {
-    enum SpecialChar : UInt8 {
+    func scan(input: String) -> [Token] {
+        var tokens:[Token] = []
+        var currentIdentifier = ""
+        
+        var iterator = input.utf8.enumerated().makeIterator()
+        while let (_, codeUnit) = iterator.next() {
+            if !handleSpecialChars(identifier: &currentIdentifier, tokens: &tokens, iterator: &iterator, codeUnit: codeUnit) {
+                currentIdentifier += String(UnicodeScalar(codeUnit))
+            }
+        }
+        if currentIdentifier != "" {
+            tokens.append(Token.identifier(currentIdentifier))
+        }
+        return tokens
+    }
+    
+    private enum SChar : UInt8 {
         case lf = 10
         case cr = 13
         case comma = 44
@@ -59,38 +75,34 @@ struct Scanner {
         case equal = 61
     }
     
-    func scan(input: String) -> [Token] {
-        var tokens:[Token] = []
-        var currentIdentifier = ""
-        
-        var iterator = input.utf8.enumerated().makeIterator()
-        while let (_, codeUnit) = iterator.next() {
-            switch codeUnit {
-            case 58: // COLON
-                handleCOLON(identifier: &currentIdentifier, tokens: &tokens, codeUnit: codeUnit)
+    private func handleSpecialChars(identifier: inout String, tokens: inout [Token],
+                                    iterator: inout EnumeratedIterator<String.UTF8View.Iterator>,
+                                    codeUnit: UInt8) -> Bool {
+        var specialCharFound = true
+        if let codeUnitSelector = SChar(rawValue: codeUnit) {
+            switch codeUnitSelector {
+            case .colon: // COLON
+                handleCOLON(identifier: &identifier, tokens: &tokens, codeUnit: codeUnit)
                 break
-            case 59: // SEMI-COLON
-                handleSeparator(identifier: &currentIdentifier, tokens: &tokens, tokenType: Token.parameterSeparator)
+            case .semiColon: // SEMI-COLON
+                handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.parameterSeparator)
                 break
-            case 61: // EQUAL
-                handleSeparator(identifier: &currentIdentifier, tokens: &tokens, tokenType: Token.parameterValueSeparator)
+            case .equal: // EQUAL
+                handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.parameterValueSeparator)
                 break
-            case 44: // COMMA
-                handleSeparator(identifier: &currentIdentifier, tokens: &tokens, tokenType: Token.multiValueSeparator)
+            case .comma: // COMMA
+                handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.multiValueSeparator)
                 break
-            case 13: // CR
+            case .cr: // CR
                 break
-            case 10: // LF
-                handleLineFeed(identifier: &currentIdentifier, tokens: &tokens, codeUnit: codeUnit, iterator: &iterator)
+            case .lf: // LF
+                handleLineFeed(identifier: &identifier, tokens: &tokens, codeUnit: codeUnit, iterator: &iterator)
                 break
-            default:
-                currentIdentifier += String(UnicodeScalar(codeUnit))
             }
+        } else {
+            specialCharFound = false
         }
-        if currentIdentifier != "" {
-            tokens.append(Token.identifier(currentIdentifier))
-        }
-        return tokens
+        return specialCharFound
     }
     
     private func handleCOLON(identifier: inout String, tokens: inout [Token], codeUnit: UInt8) {

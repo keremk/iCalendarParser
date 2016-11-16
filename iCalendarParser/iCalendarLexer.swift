@@ -50,53 +50,70 @@ extension Token {
 }
 
 struct Scanner {
-    func scan(input: String) -> [Token] {
-        var tokens:[Token] = []
-        var currentIdentifier = ""
+    let input:String
+    
+    var tokens:[Token] = []
+    var escapeDoubleQuoteOn:Bool = false
+    var identifier:String = ""
+    var iterator:EnumeratedIterator<String.UTF8View.Iterator> = "".utf8.enumerated().makeIterator()
+    
+    init(input: String) {
+        self.input = input
+    }
+    
+    mutating func scan() -> [Token] {
+        initializeState()
         
-        var iterator = input.utf8.enumerated().makeIterator()
         while let (_, codeUnit) = iterator.next() {
-            if !handleSpecialChars(identifier: &currentIdentifier, tokens: &tokens, iterator: &iterator, codeUnit: codeUnit) {
-                currentIdentifier += String(UnicodeScalar(codeUnit))
+            if !handleSpecialChars(codeUnit: codeUnit) {
+                identifier += String(UnicodeScalar(codeUnit))
             }
         }
-        if currentIdentifier != "" {
-            tokens.append(Token.identifier(currentIdentifier))
+        if identifier != "" {
+            tokens.append(Token.identifier(identifier))
         }
         return tokens
+    }
+    
+    private mutating func initializeState() {
+        tokens = []
+        identifier = ""
+        escapeDoubleQuoteOn = false
+        iterator = input.utf8.enumerated().makeIterator()
     }
     
     private enum SChar : UInt8 {
         case lf = 10
         case cr = 13
+        case dquote = 22
         case comma = 44
         case colon = 58
         case semiColon = 59
         case equal = 61
     }
     
-    private func handleSpecialChars(identifier: inout String, tokens: inout [Token],
-                                    iterator: inout EnumeratedIterator<String.UTF8View.Iterator>,
-                                    codeUnit: UInt8) -> Bool {
+    private mutating func handleSpecialChars(codeUnit: UInt8) -> Bool {
         var specialCharFound = true
         if let codeUnitSelector = SChar(rawValue: codeUnit) {
             switch codeUnitSelector {
-            case .colon: // COLON
-                handleCOLON(identifier: &identifier, tokens: &tokens, codeUnit: codeUnit)
+            case .dquote:
+                toggleEscapeDoubleQuote()
+            case .colon:
+                handleCOLON(codeUnit: codeUnit)
                 break
-            case .semiColon: // SEMI-COLON
-                handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.parameterSeparator)
+            case .semiColon:
+                handleSeparator(tokenType: Token.parameterSeparator)
                 break
-            case .equal: // EQUAL
-                handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.parameterValueSeparator)
+            case .equal:
+                handleSeparator(tokenType: Token.parameterValueSeparator)
                 break
-            case .comma: // COMMA
-                handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.multiValueSeparator)
+            case .comma:
+                handleSeparator(tokenType: Token.multiValueSeparator)
                 break
-            case .cr: // CR
+            case .cr:
                 break
-            case .lf: // LF
-                handleLineFeed(identifier: &identifier, tokens: &tokens, codeUnit: codeUnit, iterator: &iterator)
+            case .lf:
+                handleLineFeed(codeUnit: codeUnit)
                 break
             }
         } else {
@@ -105,35 +122,42 @@ struct Scanner {
         return specialCharFound
     }
     
-    private func handleCOLON(identifier: inout String, tokens: inout [Token], codeUnit: UInt8) {
+    private mutating func toggleEscapeDoubleQuote() {
+        escapeDoubleQuoteOn = !escapeDoubleQuoteOn
+    }
+    
+    private mutating func handleCOLON(codeUnit: UInt8) {
         if isIdentifierURLProtocol(identifier: identifier) {
             identifier += String(UnicodeScalar(codeUnit))
         } else {
-            handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.valueSeparator)
+            handleSeparator(tokenType: Token.valueSeparator)
         }
     }
     
-    private func handleSeparator(identifier: inout String, tokens: inout [Token], tokenType: Token) {
-        let identifierToken = Token.identifier(identifier)
-        tokens.append(identifierToken)
+    private mutating func handleSeparator(tokenType: Token) {
+        if (identifier != "") {
+            let identifierToken = Token.identifier(identifier)
+            tokens.append(identifierToken)
+        }
         tokens.append(tokenType)
         identifier = ""
     }
     
-    private func handleLineFeed(identifier: inout String, tokens: inout [Token], codeUnit: UInt8,
-                                iterator: inout EnumeratedIterator<String.UTF8View.Iterator>) {
+    private mutating func handleLineFeed(codeUnit: UInt8) {
         if let (_, nextUnit) = iterator.next() {
             if (nextUnit == 32 || nextUnit == 9) {
                 identifier += String(UnicodeScalar(codeUnit))
             } else {
-                handleSeparator(identifier: &identifier, tokens: &tokens, tokenType: Token.contentLine)
-                identifier += String(UnicodeScalar(nextUnit))
+                handleSeparator(tokenType: Token.contentLine)
+                if !handleSpecialChars(codeUnit: nextUnit) {
+                    identifier += String(UnicodeScalar(nextUnit))
+                }
             }
         } 
     }
 
     private func isIdentifierURLProtocol(identifier:String) -> Bool  {
-        let urlProtocolIdentifiers = ["mailto", "http", "ftp"]
+        let urlProtocolIdentifiers = ["mailto", "http", "https", "ftp"]
         
         for entry in urlProtocolIdentifiers {
             if (entry == identifier) {

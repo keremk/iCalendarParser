@@ -25,59 +25,32 @@ class ScanningIteratorTests: XCTestCase {
         var iterator = ScanningSequence(input: input).makeIterator()
         
         let (_, value) = iterator.next()!
-        XCTAssert(value == "A".utf8.first)
-    }
-    
-    func testPeekPreceeding() {
-        let input = "ABC"
-        var iterator = ScanningSequence(input: input).makeIterator()
-        
-        let (_, _) = iterator.next()!
-        let (_, value) = iterator.next()!
-        XCTAssert(value == "B".utf8.first)
-        
-        let (_, priorValue) = iterator.peekPreceeding()!
-        XCTAssert(priorValue == "A".utf8.first)
-    }
-    
-    func testPeekFollowing() {
-        let input = "ABC"
-        var iterator = ScanningSequence(input: input).makeIterator()
-        
-        let (_, _) = iterator.next()!
-        let (_, followingValue) = iterator.peekFollowing()!
-        XCTAssert(followingValue == "B".utf8.first)
-        let (_, value) = iterator.next()!
-        XCTAssert(value == "B".utf8.first)
+        XCTAssert(value.current == "A".utf8.first)
+        XCTAssert(value.preceding == nil)
+        XCTAssert(value.next == "B".utf8.first)
     }
     
     func testBoundaryCases() {
         let input = "AB"
         var iterator = ScanningSequence(input: input).makeIterator()
         
-        let preceedingValue = iterator.peekPreceeding()
-        XCTAssert(preceedingValue == nil)
-        
         let (_, _) = iterator.next()!
         let (_, _) = iterator.next()!
-        
-        let followingValue = iterator.peekFollowing()
-        XCTAssert(followingValue == nil)
-        
         let value = iterator.next()
-        XCTAssert(value == nil)
+        
+        XCTAssertNil(value)
     }
-    
+
     func testForLoop() {
-        let input = "AB"
+        let input = "ABC"
         let sequence = ScanningSequence(input: input)
+        let expectedSequence = [(0, ScannedUTF8(preceding: nil, current: "A".utf8.first, next: "B".utf8.first)),
+                                (1, ScannedUTF8(preceding: "A".utf8.first, current: "B".utf8.first, next: "C".utf8.first)),
+                                (2, ScannedUTF8(preceding: "B".utf8.first, current: "C".utf8.first, next: nil))]
         
         for (index, value) in sequence {
-            if (index == 0) {
-                XCTAssert(value == "A".utf8.first)
-            } else if (index == 1) {
-                XCTAssert(value == "B".utf8.first)
-            }
+            XCTAssert(index == expectedSequence[index].0)
+            XCTAssert(value == expectedSequence[index].1)
         }
     }
 }

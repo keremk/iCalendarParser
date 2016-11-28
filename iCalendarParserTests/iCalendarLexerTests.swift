@@ -51,11 +51,11 @@ class iCalendarLexerTests: XCTestCase {
     }
     
     func testFoldedLine() {
-        let input = "DESCRIPTION:Project xyz Review Meeting Minutes" + "\r\n" + " Foobar is important" + "\r\n" + "END:VEVENT"
+        let input = "DESCRIPTION:Project xyz Review Meeting Minutes" + "\r\n" + "  Foobar is important" + "\r\n" + "END:VEVENT"
         var scanner = Scanner(input: input)
 
         let tokens = scanner.scan()
-        let expectedTokens = [Token.identifier("DESCRIPTION"), Token.valueSeparator, Token.identifier("Project xyz Review Meeting Minutes\n Foobar is important"), Token.contentLine, Token.identifier("END"), Token.valueSeparator, Token.identifier("VEVENT") ]
+        let expectedTokens = [Token.identifier("DESCRIPTION"), Token.valueSeparator, Token.identifier("Project xyz Review Meeting Minutes Foobar is important"), Token.contentLine, Token.identifier("END"), Token.valueSeparator, Token.identifier("VEVENT") ]
         
         XCTAssertEqual(tokens, expectedTokens)
     }
@@ -71,11 +71,11 @@ class iCalendarLexerTests: XCTestCase {
     }
     
     func testMultipleContentLines() {
-        let input = "DESCRIPTION:Project xyz Review Meeting Minutes" + "\r\n" + " Foobar is\n important" + "\r\n\r\n" + "END:VEVENT"
+        let input = "DESCRIPTION:Project xyz Review Meeting Minutes" + "\r\n" + "  Foobar is\n important" + "\r\n\r\n" + "END:VEVENT"
         var scanner = Scanner(input: input)
         
         let tokens = scanner.scan()
-        let expectedTokens = [Token.identifier("DESCRIPTION"), Token.valueSeparator, Token.identifier("Project xyz Review Meeting Minutes\n Foobar is\n important"), Token.contentLine, Token.contentLine, Token.identifier("END"), Token.valueSeparator, Token.identifier("VEVENT") ]
+        let expectedTokens = [Token.identifier("DESCRIPTION"), Token.valueSeparator, Token.identifier("Project xyz Review Meeting Minutes Foobar is\n important"), Token.contentLine, Token.contentLine, Token.identifier("END"), Token.valueSeparator, Token.identifier("VEVENT") ]
         
         XCTAssertEqual(tokens, expectedTokens)
     }

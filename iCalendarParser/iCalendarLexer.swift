@@ -54,7 +54,6 @@ struct Scanner {
     
     var tokens:[Token] = []
     var identifier:String = ""
-    var iterator:EnumeratedIterator<String.UTF8View.Iterator> = "".utf8.enumerated().makeIterator()
     
     var escapeDoubleQuoteOn:Bool = false
 
@@ -65,11 +64,8 @@ struct Scanner {
     mutating func scan() -> [Token] {
         initializeState()
         
-        while let (_, codeUnit) = iterator.next() {
-            
-            if !handleSpecialChars(codeUnit: codeUnit) {
-                identifier += String(UnicodeScalar(codeUnit))
-            }
+        for (_, scanned) in ScanningSequence(input: input) {
+            handleSpecialChars(scanned: scanned)
         }
         if identifier != "" {
             tokens.append(Token.identifier(identifier))
@@ -81,55 +77,60 @@ struct Scanner {
         tokens = []
         identifier = ""
         escapeDoubleQuoteOn = false
-        iterator = input.utf8.enumerated().makeIterator()
     }
     
-    private enum SChar : UInt8 {
-        case lf = 10
-        case cr = 13
-        case dquote = 22
-        case comma = 44
-        case colon = 58
-        case semiColon = 59
-        case equal = 61
+    private struct SpecialCharSet {
+        static let htab:UTF8.CodeUnit = 9
+        static let lf:UTF8.CodeUnit = 10
+        static let cr:UTF8.CodeUnit = 13
+        static let dquote:UTF8.CodeUnit = 22
+        static let space:UTF8.CodeUnit = 32
+        static let comma:UTF8.CodeUnit = 44
+        static let colon:UTF8.CodeUnit = 58
+        static let semiColon:UTF8.CodeUnit = 59
+        static let equal:UTF8.CodeUnit = 61
     }
-    
-    private mutating func handleSpecialChars(codeUnit: UInt8) -> Bool {
-        var specialCharFound = true
-        if let codeUnitSelector = SChar(rawValue: codeUnit) {
-            switch codeUnitSelector {
-            case .dquote:
-                toggleEscapeDoubleQuote()
-            case .colon:
-                handleCOLON(codeUnit: codeUnit)
-                break
-            case .semiColon:
-                handleSeparator(tokenType: Token.parameterSeparator)
-                break
-            case .equal:
-                handleSeparator(tokenType: Token.parameterValueSeparator)
-                break
-            case .comma:
-                handleSeparator(tokenType: Token.multiValueSeparator)
-                break
-            case .cr:
-                print("found CR\n")
-                break
-            case .lf:
-                handleLineFeed(codeUnit: codeUnit)
-                break
-            }
-        } else {
-            specialCharFound = false
+        
+    private mutating func handleSpecialChars(scanned: ScannedUTF8) {
+        guard let current = scanned.current else {
+            return
         }
-        return specialCharFound
+        
+        switch current {
+        case SpecialCharSet.dquote:
+            toggleEscapeDoubleQuote()
+        case SpecialCharSet.colon:
+            handleCOLON(codeUnit: current)
+            break
+        case SpecialCharSet.semiColon:
+            handleSeparator(tokenType: Token.parameterSeparator)
+            break
+        case SpecialCharSet.equal:
+            handleSeparator(tokenType: Token.parameterValueSeparator)
+            break
+        case SpecialCharSet.comma:
+            handleSeparator(tokenType: Token.multiValueSeparator)
+            break
+        case SpecialCharSet.cr:
+            print("found CR\n")
+            break
+        case SpecialCharSet.lf:
+            handleLineFeed(scanned: scanned)
+            break
+        case SpecialCharSet.htab, SpecialCharSet.space:
+            identifier += String(UnicodeScalar(current))
+            break
+        default:
+            identifier += String(UnicodeScalar(current))
+            break
+        }
     }
     
     private mutating func toggleEscapeDoubleQuote() {
         escapeDoubleQuoteOn = !escapeDoubleQuoteOn
     }
     
-    private mutating func handleCOLON(codeUnit: UInt8) {
+    private mutating func handleCOLON(codeUnit: UTF8.CodeUnit) {
         if isIdentifierURLProtocol(identifier: identifier) {
             identifier += String(UnicodeScalar(codeUnit))
         } else {
@@ -146,17 +147,25 @@ struct Scanner {
         identifier = ""
     }
     
-    private mutating func handleLineFeed(codeUnit: UInt8) {
-        if let (_, nextUnit) = iterator.next() {
-            if (nextUnit == 32 || nextUnit == 9) {
-                identifier += String(UnicodeScalar(codeUnit))
-            } else {
-                handleSeparator(tokenType: Token.contentLine)
-                if !handleSpecialChars(codeUnit: nextUnit) {
-                    identifier += String(UnicodeScalar(nextUnit))
-                }
-            }
-        } 
+    private mutating func handleLineFeed(scanned: ScannedUTF8) {
+        guard let current = scanned.current,
+            let next = scanned.next,
+            let preceding = scanned.preceding else {
+            return
+        }
+        
+        switch (preceding, next) {
+        case (SpecialCharSet.cr, SpecialCharSet.space), (SpecialCharSet.cr, SpecialCharSet.htab):
+            // Ignore the linefeed, it is not a content line
+            identifier += String(UnicodeScalar(current))
+            break
+        case (SpecialCharSet.cr, _):
+            handleSeparator(tokenType: Token.contentLine)
+            break
+        case (_, _):
+            identifier += String(UnicodeScalar(current))
+            break
+        }
     }
 
     private func isIdentifierURLProtocol(identifier:String) -> Bool  {

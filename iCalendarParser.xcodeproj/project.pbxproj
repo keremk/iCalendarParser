@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */; };
 		775558261DD7520900BA9027 /* iCalendarParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7755581C1DD7520900BA9027 /* iCalendarParser.framework */; };
 		7755582D1DD7520900BA9027 /* iCalendarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7755581F1DD7520900BA9027 /* iCalendarParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		775558371DD7532500BA9027 /* iCalendarLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* iCalendarLexer.swift */; };
 		775558381DD7532500BA9027 /* iCalendarLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* iCalendarLexer.swift */; };
 		77791CA31DD884E4003FD445 /* iCalendarLexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77791CA21DD884E4003FD445 /* iCalendarLexerTests.swift */; };
+		77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
+		77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIteratorTests.swift; sourceTree = "<group>"; };
 		7755581C1DD7520900BA9027 /* iCalendarParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCalendarParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7755581F1DD7520900BA9027 /* iCalendarParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCalendarParser.h; sourceTree = "<group>"; };
 		775558201DD7520900BA9027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -32,6 +36,7 @@
 		7755582C1DD7520900BA9027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		775558361DD7532500BA9027 /* iCalendarLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCalendarLexer.swift; sourceTree = "<group>"; };
 		77791CA21DD884E4003FD445 /* iCalendarLexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCalendarLexerTests.swift; sourceTree = "<group>"; };
+		77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIterator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,7 @@
 				7755581F1DD7520900BA9027 /* iCalendarParser.h */,
 				775558201DD7520900BA9027 /* Info.plist */,
 				775558361DD7532500BA9027 /* iCalendarLexer.swift */,
+				77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */,
 			);
 			path = iCalendarParser;
 			sourceTree = "<group>";
@@ -86,6 +92,7 @@
 			children = (
 				7755582C1DD7520900BA9027 /* Info.plist */,
 				77791CA21DD884E4003FD445 /* iCalendarLexerTests.swift */,
+				773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */,
 			);
 			path = iCalendarParserTests;
 			sourceTree = "<group>";
@@ -204,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				775558371DD7532500BA9027 /* iCalendarLexer.swift in Sources */,
+				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +219,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */,
+				77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				775558381DD7532500BA9027 /* iCalendarLexer.swift in Sources */,
 				77791CA31DD884E4003FD445 /* iCalendarLexerTests.swift in Sources */,
 			);

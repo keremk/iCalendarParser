@@ -53,10 +53,11 @@ struct Scanner {
     let input:String
     
     var tokens:[Token] = []
-    var escapeDoubleQuoteOn:Bool = false
     var identifier:String = ""
     var iterator:EnumeratedIterator<String.UTF8View.Iterator> = "".utf8.enumerated().makeIterator()
     
+    var escapeDoubleQuoteOn:Bool = false
+
     init(input: String) {
         self.input = input
     }
@@ -65,6 +66,7 @@ struct Scanner {
         initializeState()
         
         while let (_, codeUnit) = iterator.next() {
+            
             if !handleSpecialChars(codeUnit: codeUnit) {
                 identifier += String(UnicodeScalar(codeUnit))
             }
@@ -111,6 +113,7 @@ struct Scanner {
                 handleSeparator(tokenType: Token.multiValueSeparator)
                 break
             case .cr:
+                print("found CR\n")
                 break
             case .lf:
                 handleLineFeed(codeUnit: codeUnit)

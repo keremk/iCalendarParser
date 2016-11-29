@@ -56,7 +56,7 @@ struct Scanner {
     var identifier:String = ""
     
     var escapeDoubleQuoteOn:Bool = false
-    var ignoreNextSpace = false
+    var ignoreNextSpaceOrHTab = false
 
     init(input: String) {
         self.input = input
@@ -118,11 +118,8 @@ struct Scanner {
         case SpecialCharSet.lf:
             handleLineFeed(scanned: scanned)
             break
-        case SpecialCharSet.space:
-            handleSpace(scanned: scanned)
-            break
         case SpecialCharSet.htab, SpecialCharSet.space:
-            identifier += String(UnicodeScalar(current))
+            handleSpaceOrHTab(scanned: scanned)
             break
         default:
             identifier += String(UnicodeScalar(current))
@@ -161,7 +158,7 @@ struct Scanner {
         switch (preceding, next) {
         case (SpecialCharSet.cr, SpecialCharSet.space), (SpecialCharSet.cr, SpecialCharSet.htab):
             // Ignore the linefeed, it is not a content line
-            ignoreNextSpace = true
+            ignoreNextSpaceOrHTab = true
             break
         case (SpecialCharSet.cr, _):
             handleSeparator(tokenType: Token.contentLine)
@@ -172,12 +169,12 @@ struct Scanner {
         }
     }
     
-    private mutating func handleSpace(scanned: ScannedUTF8) {
+    private mutating func handleSpaceOrHTab(scanned: ScannedUTF8) {
         guard let preceding = scanned.preceding, let current = scanned.current else {
             return
         }
-        if (ignoreNextSpace && preceding == SpecialCharSet.lf) {
-            ignoreNextSpace = false
+        if (ignoreNextSpaceOrHTab && preceding == SpecialCharSet.lf) {
+            ignoreNextSpaceOrHTab = false
         } else {
             identifier += String(UnicodeScalar(current))
         }

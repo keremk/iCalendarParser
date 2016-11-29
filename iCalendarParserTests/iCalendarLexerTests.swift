@@ -50,7 +50,7 @@ class iCalendarLexerTests: XCTestCase {
         XCTAssertEqual(tokens, expectedTokens)
     }
     
-    func testFoldedLine() {
+    func testFoldedLineWithSpace() {
         let input = "DESCRIPTION:Project xyz Review Meeting Minutes" + "\r\n" + "  Foobar is important" + "\r\n" + "END:VEVENT"
         var scanner = Scanner(input: input)
 
@@ -59,7 +59,17 @@ class iCalendarLexerTests: XCTestCase {
         
         XCTAssertEqual(tokens, expectedTokens)
     }
-    
+
+    func testFoldedLineWithHTab() {
+        let input = "DESCRIPTION:Project xyz Review Meeting Minutes" + "\r\n" + "\t\tFoobar is important"
+        var scanner = Scanner(input: input)
+        
+        let tokens = scanner.scan()
+        let expectedTokens = [Token.identifier("DESCRIPTION"), Token.valueSeparator, Token.identifier("Project xyz Review Meeting Minutes\tFoobar is important")]
+        
+        XCTAssertEqual(tokens, expectedTokens)
+    }
+
     func testMultiValues() {
         let input = "CATEGORIES:MEETING,PROJECT"
         var scanner = Scanner(input: input)

@@ -49,7 +49,7 @@ extension Token {
     }
 }
 
-struct Scanner {
+struct Lexer {
     let input:String
     
     var tokens:[Token] = []

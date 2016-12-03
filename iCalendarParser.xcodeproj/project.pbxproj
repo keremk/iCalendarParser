@@ -10,9 +10,9 @@
 		773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */; };
 		775558261DD7520900BA9027 /* iCalendarParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7755581C1DD7520900BA9027 /* iCalendarParser.framework */; };
 		7755582D1DD7520900BA9027 /* iCalendarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7755581F1DD7520900BA9027 /* iCalendarParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		775558371DD7532500BA9027 /* iCalendarLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* iCalendarLexer.swift */; };
-		775558381DD7532500BA9027 /* iCalendarLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* iCalendarLexer.swift */; };
-		77791CA31DD884E4003FD445 /* iCalendarLexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77791CA21DD884E4003FD445 /* iCalendarLexerTests.swift */; };
+		775558371DD7532500BA9027 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* Lexer.swift */; };
+		775558381DD7532500BA9027 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* Lexer.swift */; };
+		77791CA31DD884E4003FD445 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77791CA21DD884E4003FD445 /* LexerTests.swift */; };
 		77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 		77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 /* End PBXBuildFile section */
@@ -34,8 +34,8 @@
 		775558201DD7520900BA9027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		775558251DD7520900BA9027 /* iCalendarParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCalendarParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7755582C1DD7520900BA9027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		775558361DD7532500BA9027 /* iCalendarLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCalendarLexer.swift; sourceTree = "<group>"; };
-		77791CA21DD884E4003FD445 /* iCalendarLexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCalendarLexerTests.swift; sourceTree = "<group>"; };
+		775558361DD7532500BA9027 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		77791CA21DD884E4003FD445 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIterator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,7 +81,7 @@
 			children = (
 				7755581F1DD7520900BA9027 /* iCalendarParser.h */,
 				775558201DD7520900BA9027 /* Info.plist */,
-				775558361DD7532500BA9027 /* iCalendarLexer.swift */,
+				775558361DD7532500BA9027 /* Lexer.swift */,
 				77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */,
 			);
 			path = iCalendarParser;
@@ -91,7 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				7755582C1DD7520900BA9027 /* Info.plist */,
-				77791CA21DD884E4003FD445 /* iCalendarLexerTests.swift */,
+				77791CA21DD884E4003FD445 /* LexerTests.swift */,
 				773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */,
 			);
 			path = iCalendarParserTests;
@@ -210,7 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				775558371DD7532500BA9027 /* iCalendarLexer.swift in Sources */,
+				775558371DD7532500BA9027 /* Lexer.swift in Sources */,
 				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,8 +221,8 @@
 			files = (
 				773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */,
 				77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
-				775558381DD7532500BA9027 /* iCalendarLexer.swift in Sources */,
-				77791CA31DD884E4003FD445 /* iCalendarLexerTests.swift in Sources */,
+				775558381DD7532500BA9027 /* Lexer.swift in Sources */,
+				77791CA31DD884E4003FD445 /* LexerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

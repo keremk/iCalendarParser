@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */; };
+		773880E51DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
+		773880E61DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
+		773880E81DF415F900746CC8 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E71DF415F900746CC8 /* ParserTests.swift */; };
+		773880EA1DF4163D00746CC8 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E91DF4163D00746CC8 /* Rules.swift */; };
+		773880EB1DF4163D00746CC8 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E91DF4163D00746CC8 /* Rules.swift */; };
+		773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880EC1DF445DA00746CC8 /* RulesTests.swift */; };
 		775558261DD7520900BA9027 /* iCalendarParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7755581C1DD7520900BA9027 /* iCalendarParser.framework */; };
 		7755582D1DD7520900BA9027 /* iCalendarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7755581F1DD7520900BA9027 /* iCalendarParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		775558371DD7532500BA9027 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* Lexer.swift */; };
@@ -29,6 +35,10 @@
 
 /* Begin PBXFileReference section */
 		773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIteratorTests.swift; sourceTree = "<group>"; };
+		773880E41DF415CA00746CC8 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		773880E71DF415F900746CC8 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		773880E91DF4163D00746CC8 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
+		773880EC1DF445DA00746CC8 /* RulesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesTests.swift; sourceTree = "<group>"; };
 		7755581C1DD7520900BA9027 /* iCalendarParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCalendarParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7755581F1DD7520900BA9027 /* iCalendarParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCalendarParser.h; sourceTree = "<group>"; };
 		775558201DD7520900BA9027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,8 +91,10 @@
 			children = (
 				7755581F1DD7520900BA9027 /* iCalendarParser.h */,
 				775558201DD7520900BA9027 /* Info.plist */,
-				775558361DD7532500BA9027 /* Lexer.swift */,
 				77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */,
+				775558361DD7532500BA9027 /* Lexer.swift */,
+				773880E91DF4163D00746CC8 /* Rules.swift */,
+				773880E41DF415CA00746CC8 /* Parser.swift */,
 			);
 			path = iCalendarParser;
 			sourceTree = "<group>";
@@ -91,8 +103,10 @@
 			isa = PBXGroup;
 			children = (
 				7755582C1DD7520900BA9027 /* Info.plist */,
-				77791CA21DD884E4003FD445 /* LexerTests.swift */,
 				773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */,
+				77791CA21DD884E4003FD445 /* LexerTests.swift */,
+				773880EC1DF445DA00746CC8 /* RulesTests.swift */,
+				773880E71DF415F900746CC8 /* ParserTests.swift */,
 			);
 			path = iCalendarParserTests;
 			sourceTree = "<group>";
@@ -211,7 +225,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				775558371DD7532500BA9027 /* Lexer.swift in Sources */,
+				773880EA1DF4163D00746CC8 /* Rules.swift in Sources */,
 				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
+				773880E51DF415CA00746CC8 /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,8 +236,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */,
+				773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */,
 				77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
+				773880E81DF415F900746CC8 /* ParserTests.swift in Sources */,
+				773880E61DF415CA00746CC8 /* Parser.swift in Sources */,
 				775558381DD7532500BA9027 /* Lexer.swift in Sources */,
+				773880EB1DF4163D00746CC8 /* Rules.swift in Sources */,
 				77791CA31DD884E4003FD445 /* LexerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

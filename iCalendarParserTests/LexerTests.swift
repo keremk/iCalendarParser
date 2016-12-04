@@ -89,4 +89,15 @@ class LexerTests: XCTestCase {
         
         XCTAssertEqual(tokens, expectedTokens)
     }
+    
+    func testDoubleQuoteParameterValues() {
+        let input = "DESCRIPTION;ALTREP=\"cid:part1.0001@example.org\":The Fall Conference"
+        var lexer = Lexer(input: input)
+        
+        let tokens = lexer.scan()
+        let expectedTokens = [Token.identifier("DESCRIPTION"), Token.parameterSeparator, Token.identifier("ALTREP"), Token.parameterValueSeparator,
+                              Token.identifier("cid:part1.0001@example.org"), Token.valueSeparator, Token.identifier("The Fall Conference")]
+        
+        XCTAssertEqual(tokens, expectedTokens)
+    }
 }

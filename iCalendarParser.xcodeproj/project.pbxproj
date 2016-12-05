@@ -14,6 +14,8 @@
 		773880EA1DF4163D00746CC8 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E91DF4163D00746CC8 /* Rules.swift */; };
 		773880EB1DF4163D00746CC8 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E91DF4163D00746CC8 /* Rules.swift */; };
 		773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880EC1DF445DA00746CC8 /* RulesTests.swift */; };
+		773880EF1DF55D5A00746CC8 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880EE1DF55D5A00746CC8 /* Stack.swift */; };
+		773880F01DF55D5A00746CC8 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880EE1DF55D5A00746CC8 /* Stack.swift */; };
 		775558261DD7520900BA9027 /* iCalendarParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7755581C1DD7520900BA9027 /* iCalendarParser.framework */; };
 		7755582D1DD7520900BA9027 /* iCalendarParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7755581F1DD7520900BA9027 /* iCalendarParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		775558371DD7532500BA9027 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775558361DD7532500BA9027 /* Lexer.swift */; };
@@ -39,6 +41,7 @@
 		773880E71DF415F900746CC8 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		773880E91DF4163D00746CC8 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		773880EC1DF445DA00746CC8 /* RulesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesTests.swift; sourceTree = "<group>"; };
+		773880EE1DF55D5A00746CC8 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		7755581C1DD7520900BA9027 /* iCalendarParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCalendarParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7755581F1DD7520900BA9027 /* iCalendarParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCalendarParser.h; sourceTree = "<group>"; };
 		775558201DD7520900BA9027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 				775558361DD7532500BA9027 /* Lexer.swift */,
 				773880E91DF4163D00746CC8 /* Rules.swift */,
 				773880E41DF415CA00746CC8 /* Parser.swift */,
+				773880EE1DF55D5A00746CC8 /* Stack.swift */,
 			);
 			path = iCalendarParser;
 			sourceTree = "<group>";
@@ -225,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				775558371DD7532500BA9027 /* Lexer.swift in Sources */,
+				773880EF1DF55D5A00746CC8 /* Stack.swift in Sources */,
 				773880EA1DF4163D00746CC8 /* Rules.swift in Sources */,
 				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				773880E51DF415CA00746CC8 /* Parser.swift in Sources */,
@@ -236,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */,
+				773880F01DF55D5A00746CC8 /* Stack.swift in Sources */,
 				773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */,
 				77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				773880E81DF415F900746CC8 /* ParserTests.swift in Sources */,

@@ -19,17 +19,17 @@ class ParserTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+    func testEmptyCalendar() {
+        // BEGIN:VCALENDAR
+        // VERSION:2.0
+        // END:VCALENDAR
+        let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.identifier("VCALENDAR"), Token.contentLine, Token.identifier("VERSION"), Token.valueSeparator, Token.identifier("2.0"), Token.contentLine, Token.identifier("END"), Token.valueSeparator, Token.identifier("VCALENDAR")]
+        
+        var parser = Parser()
+        let resultNode = try! parser.parse(tokens: inputTokens) as! Node<String>
+        
+        XCTAssert(resultNode.name == "BEGIN")
+        XCTAssert(resultNode.value == "VCALENDAR")
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

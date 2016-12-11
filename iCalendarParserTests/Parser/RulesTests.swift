@@ -20,29 +20,41 @@ class RulesTests: XCTestCase {
         super.tearDown()
     }
     
+    func assertError(tokens: [Token], error: RuleError) {
+        let ruleOutput = Rules().invokeRule(tokens: tokens)
+        
+        switch ruleOutput {
+        case .Node(_):
+            XCTFail("Expecting a RuleError, got a Node instead")
+        case .None(let error):
+            XCTAssert(error == error)
+        }
+    }
+    
     func testExistingRule() {
         let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.identifier("VCALENDAR")]
+        let expectedNodeValue = NodeValue<ComponentValueType>.Component(.Calendar, .Begin)
         
-        let rules = Rules()
-        let node = rules.invokeRule(tokens: inputTokens) as! Node<String>
-        XCTAssertNotNil(node)
-        XCTAssert(node.name == "BEGIN")
-        XCTAssert(node.value == "VCALENDAR")
+        let result = Rules().invokeRule(tokens: inputTokens)
+        switch result {
+        case .Node(let node):
+            let componentNode = node as! Node<ComponentValueType>
+            XCTAssert(componentNode.nodeValue == expectedNodeValue)
+            break
+        case .None(_):
+            XCTFail("Expecting a valid node not an error.")
+        }
+        
     }
     
     func testFailingBEGINRules() {
-        let rules = Rules()
-
         var inputTokens = [Token.identifier("BEGIN"), Token.parameterSeparator, Token.identifier("VCALENDAR")]
-        var node:Any? = rules.invokeRule(tokens: inputTokens)
-        XCTAssertNil(node)
+        assertError(tokens: inputTokens, error: RuleError.IncorrectSeparator)
         
         inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.valueSeparator]
-        node = rules.invokeRule(tokens: inputTokens)
-        XCTAssertNil(node)
+        assertError(tokens: inputTokens, error: RuleError.UnexpectedTokenType)
         
         inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator]
-        node = rules.invokeRule(tokens: inputTokens)
-        XCTAssertNil(node)
+        assertError(tokens: inputTokens, error: RuleError.UnexpectedTokenCount)
     }
 }

@@ -100,7 +100,7 @@ struct Parser {
         }
         return rootNode
     }
-
+    
     private mutating func parseNode(tokens: [Token]) {
         let ruleOutput =  Rules().invokeRule(tokens: tokens)
         switch ruleOutput {

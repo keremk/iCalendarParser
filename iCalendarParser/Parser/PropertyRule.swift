@@ -12,6 +12,7 @@ enum PropertyName: String, RawRepresentable {
     case Version = "VERSION"
     case Description = "DESCRIPTION"
     case Summary = "SUMMARY"
+    case Attendee = "ATTENDEE"
 }
 
 struct PropertyRule: Rule {

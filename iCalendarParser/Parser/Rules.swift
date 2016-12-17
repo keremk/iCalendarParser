@@ -33,7 +33,10 @@ struct Rules {
         "BEGIN": ComponentRule(),
         "END": ComponentRule(),
         PropertyName.Version.rawValue: PropertyRule(),
-        PropertyName.Summary.rawValue: PropertyRule()
+        PropertyName.Summary.rawValue: PropertyRule(),
+        PropertyName.Attendee.rawValue: PropertyRule(),
+        ParameterName.Rsvp.rawValue: ParameterRule(),
+        ParameterName.Cutype.rawValue: ParameterRule()
     ]
 
     public func invokeRule(tokens: [Token]) -> RuleOutput {

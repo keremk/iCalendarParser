@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7702F8821E055C9E00A65939 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8811E055C9E00A65939 /* Token.swift */; };
+		7702F8831E055C9E00A65939 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8811E055C9E00A65939 /* Token.swift */; };
+		7702F8851E0560D700A65939 /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8841E0560D700A65939 /* TokenTests.swift */; };
 		773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */; };
 		773880E51DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
 		773880E61DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
@@ -31,9 +34,6 @@
 		77791CA31DD884E4003FD445 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77791CA21DD884E4003FD445 /* LexerTests.swift */; };
 		77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 		77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
-		77D3C8051DFEB66600C6A3CF /* TokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D3C8041DFEB66600C6A3CF /* TokenHelper.swift */; };
-		77D3C8061DFEB66600C6A3CF /* TokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D3C8041DFEB66600C6A3CF /* TokenHelper.swift */; };
-		77F699511DFEBA55000EEE7E /* TokenHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F699501DFEBA55000EEE7E /* TokenHelperTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7702F8811E055C9E00A65939 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		7702F8841E0560D700A65939 /* TokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenTests.swift; sourceTree = "<group>"; };
 		773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIteratorTests.swift; sourceTree = "<group>"; };
 		773880E41DF415CA00746CC8 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		773880E71DF415F900746CC8 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
@@ -66,8 +68,6 @@
 		776F53341DFD73220011B55D /* PropertyRuleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyRuleTests.swift; sourceTree = "<group>"; };
 		77791CA21DD884E4003FD445 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIterator.swift; sourceTree = "<group>"; };
-		77D3C8041DFEB66600C6A3CF /* TokenHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenHelper.swift; sourceTree = "<group>"; };
-		77F699501DFEBA55000EEE7E /* TokenHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenHelperTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +137,6 @@
 				776F53291DFC4F890011B55D /* PropertyRule.swift */,
 				776F532C1DFC502E0011B55D /* ParameterRule.swift */,
 				776F53311DFD3DD10011B55D /* ValueTypes.swift */,
-				77D3C8041DFEB66600C6A3CF /* TokenHelper.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -147,6 +146,7 @@
 			children = (
 				77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */,
 				775558361DD7532500BA9027 /* Lexer.swift */,
+				7702F8811E055C9E00A65939 /* Token.swift */,
 			);
 			path = Lexer;
 			sourceTree = "<group>";
@@ -158,7 +158,6 @@
 				773880EC1DF445DA00746CC8 /* RulesTests.swift */,
 				776F532F1DFD3D860011B55D /* ComponentRuleTests.swift */,
 				776F53341DFD73220011B55D /* PropertyRuleTests.swift */,
-				77F699501DFEBA55000EEE7E /* TokenHelperTests.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -168,6 +167,7 @@
 			children = (
 				773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */,
 				77791CA21DD884E4003FD445 /* LexerTests.swift */,
+				7702F8841E0560D700A65939 /* TokenTests.swift */,
 			);
 			path = Lexer;
 			sourceTree = "<group>";
@@ -288,8 +288,8 @@
 				775558371DD7532500BA9027 /* Lexer.swift in Sources */,
 				776F53321DFD3DD10011B55D /* ValueTypes.swift in Sources */,
 				773880EA1DF4163D00746CC8 /* Rules.swift in Sources */,
-				77D3C8051DFEB66600C6A3CF /* TokenHelper.swift in Sources */,
 				776F53271DFC4F4D0011B55D /* ComponentRule.swift in Sources */,
+				7702F8821E055C9E00A65939 /* Token.swift in Sources */,
 				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				773880E51DF415CA00746CC8 /* Parser.swift in Sources */,
 				776F532A1DFC4F890011B55D /* PropertyRule.swift in Sources */,
@@ -304,11 +304,11 @@
 				776F532B1DFC4F890011B55D /* PropertyRule.swift in Sources */,
 				773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */,
 				776F53281DFC4F4D0011B55D /* ComponentRule.swift in Sources */,
-				77D3C8061DFEB66600C6A3CF /* TokenHelper.swift in Sources */,
 				776F53351DFD73220011B55D /* PropertyRuleTests.swift in Sources */,
-				77F699511DFEBA55000EEE7E /* TokenHelperTests.swift in Sources */,
 				773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */,
 				77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
+				7702F8831E055C9E00A65939 /* Token.swift in Sources */,
+				7702F8851E0560D700A65939 /* TokenTests.swift in Sources */,
 				773880E81DF415F900746CC8 /* ParserTests.swift in Sources */,
 				773880E61DF415CA00746CC8 /* Parser.swift in Sources */,
 				775558381DD7532500BA9027 /* Lexer.swift in Sources */,

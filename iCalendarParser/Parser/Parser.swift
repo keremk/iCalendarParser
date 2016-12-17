@@ -92,7 +92,9 @@ struct Parser {
         
         for token in tokens {
             if token == Token.contentLine {
-                parseNode(tokens: tokensPerLine)
+                for tokensInGroup in tokensPerLine.groupTokens() {
+                    parseNode(tokens: tokensInGroup)
+                }
                 tokensPerLine = []
             } else {
                 tokensPerLine.append(token)

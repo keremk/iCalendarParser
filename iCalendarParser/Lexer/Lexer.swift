@@ -8,47 +8,6 @@
 
 import Foundation
 
-// Samples:
-// ATTENDEE;RSVP=TRUE;ROLE=REQ-PARTICIPANT;CUTYPE=GROUP:
-//  mailto:employee-A@example.com
-// ORGANIZER:mailto:jsmith@example.com
-
-enum Token : Equatable {
-    case identifier(String)         // String
-    case contentLine                // CRLF
-    case foldedLine                 // CRLF + (HTAB | SPACE)
-    case multiValueSeparator        // COMMA
-    case parameterSeparator         // SEMI-COLON
-    case valueSeparator             // COLON
-    case parameterValueSeparator    // EQUAL
-    case doubleQuoteEscape          // DQUOTE
-}
-
-extension Token {
-    public static func ==(lhs: Token, rhs: Token) -> Bool {
-        switch (lhs, rhs) {
-        case (let .identifier(stringValue1), let .identifier(stringValue2)):
-            return stringValue1 == stringValue2
-        case (.contentLine, .contentLine):
-            return true
-        case (.foldedLine, .foldedLine):
-            return true
-        case (.multiValueSeparator, .multiValueSeparator):
-            return true
-        case (.parameterSeparator, .parameterSeparator):
-            return true
-        case (.valueSeparator, .valueSeparator):
-            return true
-        case (.parameterValueSeparator, .parameterValueSeparator):
-            return true
-        case (.doubleQuoteEscape, .doubleQuoteEscape):
-            return true
-        default:
-            return false
-        }
-    }
-}
-
 struct Lexer {
     let input:String
     

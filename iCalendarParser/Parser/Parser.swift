@@ -21,7 +21,7 @@ protocol Parsable: class {
     func appendNewNode(_ node: Parsable)
 }
 
-enum NodeValue<T: Comparable> {
+enum NodeValue<T: Equatable> {
     case Component(ComponentType, ComponentIndicator)
     case Property(PropertyName, T)
     case Parameter(ParameterName, T)
@@ -48,7 +48,7 @@ extension NodeValue {
     }
 }
 
-final class Node<T: Comparable> : Parsable {
+final class Node<T: Equatable> : Parsable {
     let nodeValue: NodeValue<T>
     
     weak var parent: Parsable?

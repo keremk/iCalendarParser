@@ -22,7 +22,7 @@ import Foundation
 //    case UTCOffset
 
 protocol ValueMapper {
-    associatedtype ValueType: Comparable
+    associatedtype ValueType: Equatable
     func mapValue(value: String) -> ValueType
 }
 
@@ -30,7 +30,7 @@ protocol ValueMapper {
 // We need to inject this ParameterRule and Property to rule to convert a String to a desired type.
 // So we are using a technique called Type Erasure (See https://krakendev.io/blog/generic-protocols-and-their-shortcomings)
 // We basically wrap our concrete mapper that knows how to map to a concrete type with this AnyValueMapper type.
-struct AnyValueMapper<T: Comparable>: ValueMapper {
+struct AnyValueMapper<T: Equatable>: ValueMapper {
     private let _mapValue: (String) -> T
     
     init<U:ValueMapper>(_ valueMapper: U) where U.ValueType == T {
@@ -39,16 +39,6 @@ struct AnyValueMapper<T: Comparable>: ValueMapper {
     
     func mapValue(value: String) -> T {
         return _mapValue(value)
-    }
-}
-
-extension Bool: Comparable {
-    public static func == (lhs: Bool, rhs: Bool) -> Bool {
-        return lhs == rhs
-    }
-    
-    public static func < (lhs: Bool, rhs: Bool) -> Bool {
-        return true
     }
 }
 
@@ -83,12 +73,8 @@ struct DateTimeMapper: ValueMapper {
 }
 
 
-struct ComponentValueType: Comparable {
+struct ComponentValueType: Equatable {
     static func == (lhs: ComponentValueType, rhs: ComponentValueType) -> Bool {
-        return true
-    }
-    
-    static func < (lhs: ComponentValueType, rhs: ComponentValueType) -> Bool {
         return true
     }
 }

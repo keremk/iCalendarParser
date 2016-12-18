@@ -14,7 +14,7 @@ enum ParameterName: String, RawRepresentable {
     case Cutype = "CUTYPE"
 }
 
-struct ParameterRule<T: Comparable>: Rule {
+struct ParameterRule<T: Equatable>: Rule {
     let valueMapper: AnyValueMapper<T>
     
     internal func invokeRule(tokens: [Token]) -> RuleOutput {

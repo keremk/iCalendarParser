@@ -115,8 +115,8 @@ class ParserTests: XCTestCase {
         // Check RSVP parameter
         let attendeeChildren = attendeeNode.children
         XCTAssert(attendeeChildren.count == 2)
-        let rsvpParameter = attendeeChildren[0] as! Node<String>
-        XCTAssert(rsvpParameter.nodeValue == NodeValue.Parameter(ParameterName.Rsvp, "TRUE"))
+        let rsvpParameter = attendeeChildren[0] as! Node<Bool>
+        XCTAssert(rsvpParameter.nodeValue == NodeValue.Parameter(ParameterName.Rsvp, true))
 
         // Check CUType parameter
         let cuTypeParameter = attendeeChildren[1] as! Node<String>

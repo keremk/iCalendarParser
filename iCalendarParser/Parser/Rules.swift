@@ -28,15 +28,15 @@ enum RuleOutput {
     case None(RuleError)
 }
 
-struct Rules {
+struct Rules: Rule {
     let ruleSet:[String:Rule] = [
         "BEGIN": ComponentRule(),
         "END": ComponentRule(),
         PropertyName.Version.rawValue: PropertyRule(),
         PropertyName.Summary.rawValue: PropertyRule(),
         PropertyName.Attendee.rawValue: PropertyRule(),
-        ParameterName.Rsvp.rawValue: ParameterRule(),
-        ParameterName.Cutype.rawValue: ParameterRule()
+        ParameterName.Rsvp.rawValue: ParameterRule(valueMapper: AnyValueMapper(BooleanMapper())),
+        ParameterName.Cutype.rawValue: ParameterRule(valueMapper: AnyValueMapper(TextMapper()))
     ]
 
     public func invokeRule(tokens: [Token]) -> RuleOutput {

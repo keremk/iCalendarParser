@@ -14,7 +14,9 @@ enum ParameterName: String, RawRepresentable {
     case Cutype = "CUTYPE"
 }
 
-struct ParameterRule: Rule {
+struct ParameterRule<T: Comparable>: Rule {
+    let valueMapper: AnyValueMapper<T>
+    
     internal func invokeRule(tokens: [Token]) -> RuleOutput {
         guard tokens.count >= 3 else {
             return RuleOutput.None(RuleError.UnexpectedTokenCount)
@@ -26,8 +28,9 @@ struct ParameterRule: Rule {
         var ruleOutput:RuleOutput
         switch (tokens[0], tokens[2]) {
         case (.identifier(let name), .identifier(let value)):
-            if let propertyName = ParameterName(rawValue: name) {
-                let nodeValue = NodeValue.Parameter(propertyName, value)
+            if let name = ParameterName(rawValue: name) {
+                let mappedValue:T = valueMapper.mapValue(value: value)                
+                let nodeValue = NodeValue.Parameter(name, mappedValue)
                 let node = Node(nodeValue: nodeValue)
                 ruleOutput = RuleOutput.Node(node)
             } else {

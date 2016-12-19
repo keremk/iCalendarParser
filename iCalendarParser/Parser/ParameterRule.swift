@@ -29,10 +29,16 @@ struct ParameterRule<T: Equatable>: Rule {
         switch (tokens[0], tokens[2]) {
         case (.identifier(let name), .identifier(let value)):
             if let name = ParameterName(rawValue: name) {
-                let mappedValue:T = valueMapper.mapValue(value: value)                
-                let nodeValue = NodeValue.Parameter(name, mappedValue)
-                let node = Node(nodeValue: nodeValue)
-                ruleOutput = RuleOutput.Node(node)
+                let mappedValue:ValueResult<T> = valueMapper.mapValue(value: value)
+                switch mappedValue {
+                case .value(let innerValue):
+                    let nodeValue = NodeValue.Parameter(name, innerValue)
+                    let node = Node(nodeValue: nodeValue)
+                    ruleOutput = RuleOutput.Node(node)
+                case .error(let error):
+                    ruleOutput = RuleOutput.None(error)
+                }
+                
             } else {
                 ruleOutput = RuleOutput.None(RuleError.UnexpectedName)
             }

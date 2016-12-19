@@ -9,22 +9,6 @@
 import Foundation
 
 extension String {
-    func toBool() -> Bool {
-        var value: Bool
-        
-        switch self {
-        case "true", "TRUE":
-            value = true
-        case "false", "FALSE":
-            value = false
-        default:
-            value = false
-        }
-        return value
-    }
-}
-
-extension String {
     subscript (r: Range<Int>) -> String {
         get {
             let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)

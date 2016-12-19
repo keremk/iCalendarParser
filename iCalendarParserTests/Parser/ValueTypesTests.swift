@@ -34,6 +34,23 @@ class ValueTypesTests: XCTestCase {
         }
     }
     
+    func testBooleanMapper() {
+        var boolString = "TRUE"
+        var boolValue = BooleanMapper().mapValue(value: boolString).flatMap()!
+        XCTAssert(boolValue == true)
+        
+        boolString = "FALSE"
+        boolValue = BooleanMapper().mapValue(value: boolString).flatMap()!
+        XCTAssert(boolValue == false)
+    }
+    
+    func testBooleanMapperWithIncorrectValue() {
+        let boolString = "GOBBLEDYGOOK"
+        let boolValue = BooleanMapper().mapValue(value: boolString)
+        
+        assertFailure(value: boolValue, expectedError: RuleError.UnexpectedValue)
+    }
+    
     func testDateMapper() {
         // https://icalendar.org/iCalendar-RFC-5545/3-3-4-date.html
         

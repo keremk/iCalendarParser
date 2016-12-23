@@ -24,6 +24,15 @@ enum Token : Equatable, TokenProtocol {
     case valueSeparator             // COLON
     case parameterValueSeparator    // EQUAL
     case doubleQuoteEscape          // DQUOTE
+    case time
+    case duration
+    case week
+    case day
+    case hour
+    case minute
+    case second
+    case plus
+    case minus
 }
 
 extension Token {
@@ -44,6 +53,24 @@ extension Token {
         case (.parameterValueSeparator, .parameterValueSeparator):
             return true
         case (.doubleQuoteEscape, .doubleQuoteEscape):
+            return true
+        case (.time, .time):
+            return true
+        case (.duration, .duration):
+            return true
+        case (.week, .week):
+            return true
+        case (.day, .day):
+            return true
+        case (.hour, .hour):
+            return true
+        case (.minute, .minute):
+            return true
+        case (.second, .second):
+            return true
+        case (.plus, .plus):
+            return true
+        case (.minus, .minus):
             return true
         default:
             return false

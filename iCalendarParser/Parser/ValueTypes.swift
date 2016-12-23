@@ -27,3 +27,18 @@ struct ComponentValueType: Equatable {
         return true
     }
 }
+
+struct Duration: Equatable {
+    var isNegative:Bool = false
+    var days: Int?
+    var weeks: Int?
+    var hours: Int?
+    var minutes: Int?
+    var seconds: Int?
+}
+
+extension Duration {
+    static func == (lhs: Duration, rhs: Duration) -> Bool {
+        return true
+    }
+}

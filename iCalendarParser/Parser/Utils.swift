@@ -16,4 +16,12 @@ extension String {
             return self.substring(with: startIndex..<endIndex)
         }
     }
+    
+    func first() -> Character {
+        return self[self.startIndex]
+    }
+    
+    func last() -> Character {
+        return self[index(before: self.endIndex)]
+    }
 }

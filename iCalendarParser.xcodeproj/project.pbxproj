@@ -14,6 +14,10 @@
 		7702F8881E06AE7200A65939 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8861E06AE7200A65939 /* Utils.swift */; };
 		7702F88A1E07035A00A65939 /* ValueTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8891E07035A00A65939 /* ValueTypesTests.swift */; };
 		7702F88C1E07504300A65939 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F88B1E07504300A65939 /* UtilsTests.swift */; };
+		772298641E0D307000707204 /* DateMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298631E0D307000707204 /* DateMappers.swift */; };
+		772298651E0D307000707204 /* DateMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298631E0D307000707204 /* DateMappers.swift */; };
+		772298671E0D308A00707204 /* DateMappersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298661E0D308A00707204 /* DateMappersTests.swift */; };
+		772298691E0D319900707204 /* AssertionHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298681E0D319900707204 /* AssertionHelpers.swift */; };
 		773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */; };
 		773880E51DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
 		773880E61DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
@@ -56,6 +60,9 @@
 		7702F8861E06AE7200A65939 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7702F8891E07035A00A65939 /* ValueTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueTypesTests.swift; sourceTree = "<group>"; };
 		7702F88B1E07504300A65939 /* UtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
+		772298631E0D307000707204 /* DateMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMappers.swift; sourceTree = "<group>"; };
+		772298661E0D308A00707204 /* DateMappersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMappersTests.swift; sourceTree = "<group>"; };
+		772298681E0D319900707204 /* AssertionHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertionHelpers.swift; sourceTree = "<group>"; };
 		773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIteratorTests.swift; sourceTree = "<group>"; };
 		773880E41DF415CA00746CC8 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		773880E71DF415F900746CC8 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
@@ -144,6 +151,7 @@
 				776F53291DFC4F890011B55D /* PropertyRule.swift */,
 				776F532C1DFC502E0011B55D /* ParameterRule.swift */,
 				776F53311DFD3DD10011B55D /* ValueTypes.swift */,
+				772298631E0D307000707204 /* DateMappers.swift */,
 				7702F8861E06AE7200A65939 /* Utils.swift */,
 			);
 			path = Parser;
@@ -167,7 +175,9 @@
 				776F532F1DFD3D860011B55D /* ComponentRuleTests.swift */,
 				776F53341DFD73220011B55D /* PropertyRuleTests.swift */,
 				7702F8891E07035A00A65939 /* ValueTypesTests.swift */,
+				772298661E0D308A00707204 /* DateMappersTests.swift */,
 				7702F88B1E07504300A65939 /* UtilsTests.swift */,
+				772298681E0D319900707204 /* AssertionHelpers.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -299,6 +309,7 @@
 				776F53321DFD3DD10011B55D /* ValueTypes.swift in Sources */,
 				773880EA1DF4163D00746CC8 /* Rules.swift in Sources */,
 				776F53271DFC4F4D0011B55D /* ComponentRule.swift in Sources */,
+				772298641E0D307000707204 /* DateMappers.swift in Sources */,
 				7702F8821E055C9E00A65939 /* Token.swift in Sources */,
 				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				773880E51DF415CA00746CC8 /* Parser.swift in Sources */,
@@ -315,6 +326,8 @@
 				776F532B1DFC4F890011B55D /* PropertyRule.swift in Sources */,
 				773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */,
 				776F53281DFC4F4D0011B55D /* ComponentRule.swift in Sources */,
+				772298671E0D308A00707204 /* DateMappersTests.swift in Sources */,
+				772298691E0D319900707204 /* AssertionHelpers.swift in Sources */,
 				776F53351DFD73220011B55D /* PropertyRuleTests.swift in Sources */,
 				773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */,
 				7702F88A1E07035A00A65939 /* ValueTypesTests.swift in Sources */,
@@ -322,6 +335,7 @@
 				7702F88C1E07504300A65939 /* UtilsTests.swift in Sources */,
 				7702F8831E055C9E00A65939 /* Token.swift in Sources */,
 				7702F8851E0560D700A65939 /* TokenTests.swift in Sources */,
+				772298651E0D307000707204 /* DateMappers.swift in Sources */,
 				773880E81DF415F900746CC8 /* ParserTests.swift in Sources */,
 				773880E61DF415CA00746CC8 /* Parser.swift in Sources */,
 				775558381DD7532500BA9027 /* Lexer.swift in Sources */,

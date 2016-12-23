@@ -89,55 +89,6 @@ struct CalenderUserAddressMapper: ValueMapper {
     }
 }
 
-
-struct DateMapper: ValueMapper {
-    internal func mapValue(value: String) -> ValueResult<Date> {
-        var result:ValueResult<Date>
-        
-        if let results = parseValue(value: value),
-           let date = dateFrom(year: results.0, month: results.1, day: results.2) {
-            result = ValueResult.value(date)
-        } else {
-            result = ValueResult.error(RuleError.UnexpectedValue)
-        }
-        
-        return result
-    }
-    
-    private func parseValue(value: String) -> (Int, Int, Int)? {
-        guard value.utf8.count == 8 else {
-            return nil
-        }
-       
-        guard let year = Int(value[0..<4]) else {
-            return nil
-        }
-        
-        guard let month = Int(value[4..<6]), month <= 12 else {
-            return nil
-        }
-
-        guard let day = Int(value[6..<8]), day <= 31 else {
-            return nil
-        }
-
-        return (year, month, day)
-    }
-    
-    private func dateFrom(year: Int, month: Int, day: Int) -> Date? {
-        let dateComponents = DateComponents(calendar: Calendar.current, timeZone: TimeZone.current, era: nil, year: year, month: month, day: day, hour: nil, minute: nil, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
-        return dateComponents.date
-    }
-
-}
-
-struct DateTimeMapper: ValueMapper {
-    internal func mapValue(value: String) -> ValueResult<Date> {
-        return ValueResult.value(Date())
-    }
-}
-
-
 struct ComponentValueType: Equatable {
     static func == (lhs: ComponentValueType, rhs: ComponentValueType) -> Bool {
         return true

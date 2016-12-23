@@ -28,4 +28,16 @@ class UtilsTests: XCTestCase {
         substring = input[1..<3]
         XCTAssert(substring == "23")
     }
+    
+    func testFirst() {
+        let input = "12345"
+        let first = input.first()
+        XCTAssert(first == "1")
+    }
+    
+    func testLast() {
+        let input = "12345"
+        let last = input.last()
+        XCTAssert(last == "5")
+    }
 }

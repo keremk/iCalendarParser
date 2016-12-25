@@ -13,8 +13,16 @@ struct DurationMapper: ValueMapper {
     // https://icalendar.org/iCalendar-RFC-5545/3-3-6-duration.html
     internal func mapValue(value: String) -> Result<Duration, RuleError> {
         var durationLexer = DurationLexer(input: value)
-        let tokens = durationLexer.scan()
-
+        let result = durationLexer.scan()
+        switch result {
+        case .success(let tokens):
+            return processTokens(tokens)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+    
+    private func processTokens(_ tokens: [Token]) -> Result<Duration, RuleError> {
         var duration: Duration = Duration()
         var currentValue:Int = 0
         for token in tokens {

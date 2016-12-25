@@ -8,7 +8,7 @@
 
 import XCTest
 
-class DurationLexerTests: XCTestCase {
+class DurationLexerTests: XCTestCase, Assertable {
     
     override func setUp() {
         super.setUp()
@@ -20,32 +20,31 @@ class DurationLexerTests: XCTestCase {
         super.tearDown()
     }
     
+    func assertSuccess(result: Result<[Token], RuleError>, expectedTokens: [Token]) {
+        if case .success(let value) = result {
+            XCTAssert(value == expectedTokens)
+        } else {
+            XCTFail("Unexpected Failure")
+        }
+    }
+    
     func testPositiveDuration() {
-        let durationString = "P1DT12H5M"
         let expectedTokens = [Token.duration, Token.identifier("1"), Token.day, Token.time, Token.identifier("12"), Token.hour, Token.identifier("5"), Token.minute]
-        
-        var durationLexer = DurationLexer(input: durationString)
-        let tokens = durationLexer.scan()
-        
-        XCTAssert(tokens == expectedTokens)
+        var durationLexer = DurationLexer(input: "P1DT12H5M")
+        let result = durationLexer.scan()
+        assertSuccess(result: result, expectedTokens: expectedTokens)
     }
     
     func testNegativeDuration() {
-        let durationString = "-P1W"
         let expectedTokens = [Token.minus, Token.duration, Token.identifier("1"), Token.week]
-        
-        var durationLexer = DurationLexer(input: durationString)
-        let tokens = durationLexer.scan()
-        XCTAssert(tokens == expectedTokens)
+        var durationLexer = DurationLexer(input: "-P1W")
+        let result = durationLexer.scan()
+        assertSuccess(result: result, expectedTokens: expectedTokens)
     }
     
     func testIncorrectValuesInDuration() {
-        // TODO: We should not fail silently like this 
-        let durationString = "PaW"
-        let expectedTokens = [Token.duration, Token.week]
-        
-        var durationLexer = DurationLexer(input: durationString)
-        let tokens = durationLexer.scan()
-        XCTAssert(tokens == expectedTokens)        
+        var durationLexer = DurationLexer(input: "PaW")
+        let result = durationLexer.scan()
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)        
     }
 }

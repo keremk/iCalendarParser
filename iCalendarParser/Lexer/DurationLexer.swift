@@ -18,16 +18,19 @@ struct DurationLexer {
         self.input = input
     }
     
-    mutating func scan() -> [Token] {
+    mutating func scan() -> Result<[Token], RuleError> {
         initializeState()
         
         for (_, scanned) in ScanningSequence(input: input) {
-            handleSpecialChars(scanned: scanned)
+            let errorFound = handleSpecialChars(scanned: scanned)
+            if case .failure(let error) = errorFound  {
+                return .failure(error as! RuleError)
+            }
         }
         if identifier != "" {
             tokens.append(Token.identifier(identifier))
         }
-        return tokens
+        return .success(tokens)
     }
     
     private mutating func initializeState() {
@@ -49,9 +52,9 @@ struct DurationLexer {
         static let nine:UTF8.CodeUnit = 0x39 // 9
     }
     
-    private mutating func handleSpecialChars(scanned: ScannedUTF8) {
+    private mutating func handleSpecialChars(scanned: ScannedUTF8) -> Result<Bool, RuleError> {
         guard let current = scanned.current else {
-            return
+            return .failure(RuleError.UnexpectedValue)
         }
         
         switch current {
@@ -85,9 +88,12 @@ struct DurationLexer {
         default:
             if (current >= SpecialCharSet.zero && current <= SpecialCharSet.nine) {
                 identifier += String(UnicodeScalar(current))
+            } else {
+                return .failure(RuleError.UnexpectedValue)
             }
             break
         }
+        return .success(true)
     }
     
     private mutating func handleSpecialChar(token: Token) {

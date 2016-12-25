@@ -33,6 +33,7 @@ class PeriodOfTimeMapperTests: XCTestCase, Assertable {
     }
     
     func testIncorrectInputs() {
-        
+        let result = DurationMapper().mapValue(value: "-PaDT12H5S")
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
     }
 }

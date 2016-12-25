@@ -8,7 +8,7 @@
 
 import XCTest
 
-class ComponentRuleTests: XCTestCase {
+class ComponentRuleTests: XCTestCase, Assertable {
     
     override func setUp() {
         super.setUp()
@@ -22,32 +22,16 @@ class ComponentRuleTests: XCTestCase {
     
     func assertExistingNode(tokens: [Token], expectedComponentType: ComponentType,
                             expectedComponentIndicator: ComponentIndicator) {
-        let ruleOutput = ComponentRule().invokeRule(tokens: tokens)
+        let expectedNodeValue = NodeValue<ComponentValueType>.Component(expectedComponentType, expectedComponentIndicator)
+        let result = ComponentRule().invokeRule(tokens: tokens)
         
-        switch ruleOutput {
-        case .Node(let parsable):
-            let node = parsable as! Node<ComponentValueType>
-            switch node.nodeValue {
-            case .Component(let componentType, let componentIndicator):
-                XCTAssert(componentType == expectedComponentType)
-                XCTAssert(componentIndicator == expectedComponentIndicator)
-            case .Parameter(_, _), .Property(_, _):
-                XCTFail("Expecting component, got a property or parameter instead")
-            }
-        case .None(_):
-            XCTFail("Expecting a valid node, got an error instead")
-        }
-    }
+        assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
+     }
     
-    func assertError(tokens: [Token], error: RuleError) {
+    func assertError(tokens: [Token], expectedError: RuleError) {
         let ruleOutput = ComponentRule().invokeRule(tokens: tokens)
         
-        switch ruleOutput {
-        case .Node(_):
-            XCTFail("Expecting a RuleError, got a Node instead")
-        case .None(let error):
-            XCTAssert(error == error)
-        }
+        assertError2(result: ruleOutput, expectedError: expectedError)
     }
     
     func testExistingRuleWithBegin() {
@@ -64,26 +48,26 @@ class ComponentRuleTests: XCTestCase {
 
     func testUnexpectedTokenValue() {
         let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.identifier("BOGUS")]
-        assertError(tokens: inputTokens, error: RuleError.UnexpectedValue)
+        assertError(tokens: inputTokens, expectedError: RuleError.UnexpectedValue)
     }
 
     func testUnexpectedTokenCount() {
         let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator]
-        assertError(tokens: inputTokens, error: RuleError.UnexpectedTokenCount)
+        assertError(tokens: inputTokens, expectedError: RuleError.UnexpectedTokenCount)
     }
 
     func testUnexpectedTokenType() {
         let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.parameterSeparator]
-        assertError(tokens: inputTokens, error: RuleError.UnexpectedTokenType)
+        assertError(tokens: inputTokens, expectedError: RuleError.UnexpectedTokenType)
     }
     
     func testIncorrectSeparator() {
         let inputTokens = [Token.identifier("BEGIN"), Token.parameterSeparator, Token.identifier("VCALENDAR")]
-        assertError(tokens: inputTokens, error: RuleError.IncorrectSeparator)
+        assertError(tokens: inputTokens, expectedError: RuleError.IncorrectSeparator)
     }
 
     func testUnexpectedName() {
         let inputTokens = [Token.identifier("BOGUS"), Token.valueSeparator, Token.identifier("VCALENDAR")]
-        assertError(tokens: inputTokens, error: RuleError.UnexpectedName)
+        assertError(tokens: inputTokens, expectedError: RuleError.UnexpectedName)
     }
 }

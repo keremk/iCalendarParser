@@ -8,7 +8,7 @@
 
 import XCTest
 
-class RulesTests: XCTestCase {
+class RulesTests: XCTestCase, Assertable {
     
     override func setUp() {
         super.setUp()
@@ -20,41 +20,27 @@ class RulesTests: XCTestCase {
         super.tearDown()
     }
     
-    func assertError(tokens: [Token], error: RuleError) {
+    func assertError(tokens: [Token], expectedError: RuleError) {
         let ruleOutput = Rules().invokeRule(tokens: tokens)
-        
-        switch ruleOutput {
-        case .Node(_):
-            XCTFail("Expecting a RuleError, got a Node instead")
-        case .None(let error):
-            XCTAssert(error == error)
-        }
+        assertError2(result: ruleOutput, expectedError: expectedError)
     }
     
     func testExistingRule() {
         let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.identifier("VCALENDAR")]
         let expectedNodeValue = NodeValue<ComponentValueType>.Component(.Calendar, .Begin)
-        
         let result = Rules().invokeRule(tokens: inputTokens)
-        switch result {
-        case .Node(let node):
-            let componentNode = node as! Node<ComponentValueType>
-            XCTAssert(componentNode.nodeValue == expectedNodeValue)
-            break
-        case .None(_):
-            XCTFail("Expecting a valid node not an error.")
-        }
-        
+ 
+        assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
     }
     
     func testFailingBEGINRules() {
         var inputTokens = [Token.identifier("BEGIN"), Token.parameterSeparator, Token.identifier("VCALENDAR")]
-        assertError(tokens: inputTokens, error: RuleError.IncorrectSeparator)
+        assertError(tokens: inputTokens, expectedError: RuleError.IncorrectSeparator)
         
         inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.valueSeparator]
-        assertError(tokens: inputTokens, error: RuleError.UnexpectedTokenType)
+        assertError(tokens: inputTokens, expectedError: RuleError.UnexpectedTokenType)
         
         inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator]
-        assertError(tokens: inputTokens, error: RuleError.UnexpectedTokenCount)
+        assertError(tokens: inputTokens, expectedError: RuleError.UnexpectedTokenCount)
     }
 }

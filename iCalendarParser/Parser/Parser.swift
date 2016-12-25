@@ -106,11 +106,11 @@ struct Parser {
     private mutating func parseNode(tokens: [Token]) {
         let ruleOutput =  Rules().invokeRule(tokens: tokens)
         switch ruleOutput {
-        case .Node(let node):
+        case .success(let node):
             handleNode(node: node)
             break
-        case .None(let error):
-            logError(error: error, tokens: tokens)
+        case .failure(let error):
+            logError(error: error as! RuleError, tokens: tokens)
             break
         }
     }

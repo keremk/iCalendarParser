@@ -11,7 +11,7 @@ import Foundation
 typealias RuleHandler<T: Comparable> = ([Token]) -> Node<T>
 
 protocol Rule {
-    func invokeRule(tokens: [Token]) -> RuleOutput
+    func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError>
 }
 
 enum RuleError: Error {
@@ -23,10 +23,10 @@ enum RuleError: Error {
     case UndefinedTokenIdentifier
 }
 
-enum RuleOutput {
-    case Node(Parsable)
-    case None(RuleError)
-}
+//enum RuleOutput {
+//    case Node(Parsable)
+//    case None(RuleError)
+//}
 
 struct Rules: Rule {
     let ruleSet:[String:Rule] = [
@@ -39,22 +39,22 @@ struct Rules: Rule {
         ParameterName.Cutype.rawValue: ParameterRule(valueMapper: AnyValueMapper(TextMapper()))
     ]
 
-    public func invokeRule(tokens: [Token]) -> RuleOutput {
+    public func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard let firstToken = tokens.first else {
-            return RuleOutput.None(RuleError.UnexpectedTokenCount)
+            return Result.failure(RuleError.UnexpectedTokenCount)
         }
         
-        var ruleOutput: RuleOutput
+        var ruleOutput: Result<Parsable, RuleError>
         switch firstToken {
         case .identifier(let identifier):
             if let rule = ruleSet[identifier] {
                 ruleOutput = rule.invokeRule(tokens: tokens)
             } else {
-                ruleOutput = RuleOutput.None(RuleError.UndefinedTokenIdentifier)
+                ruleOutput = Result.failure(RuleError.UndefinedTokenIdentifier)
             }
             break
         default:
-            ruleOutput = RuleOutput.None(RuleError.UnexpectedTokenType)
+            ruleOutput = Result.failure(RuleError.UnexpectedTokenType)
         }
         
         return ruleOutput

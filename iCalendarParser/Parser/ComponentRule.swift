@@ -24,46 +24,46 @@ enum ComponentType: String, RawRepresentable {
 }
 
 struct ComponentRule: Rule {
-    internal func invokeRule(tokens: [Token]) -> RuleOutput {
+    internal func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard tokens.count >= 3 else {
-            return RuleOutput.None(RuleError.UnexpectedTokenCount)
+            return Result.failure(RuleError.UnexpectedTokenCount)
         }
         guard tokens[1] == Token.valueSeparator else {
-            return RuleOutput.None(RuleError.IncorrectSeparator)
+            return Result.failure(RuleError.IncorrectSeparator)
         }
         
-        var ruleOutput:RuleOutput
+        var ruleOutput:Result<Parsable, RuleError>
         switch (tokens[0], tokens[2]) {
         case (.identifier(let name), .identifier(let value)):
             ruleOutput = createNode(name: name, value: value)
             break
         default:
-            ruleOutput = RuleOutput.None(RuleError.UnexpectedTokenType)
+            ruleOutput = Result.failure(RuleError.UnexpectedTokenType)
             break
         }
         
         return ruleOutput
     }
     
-    private func createNode(name:String, value:String) -> RuleOutput {
+    private func createNode(name:String, value:String) -> Result<Parsable, RuleError> {
         guard let componentEntry = ComponentIndicator(rawValue: name) else {
-            return RuleOutput.None(RuleError.UnexpectedName)
+            return Result.failure(RuleError.UnexpectedName)
         }
         guard let componentType = ComponentType(rawValue: value) else {
-            return RuleOutput.None(RuleError.UnexpectedValue)
+            return Result.failure(RuleError.UnexpectedValue)
         }
         
-        var ruleOutput:RuleOutput
+        var ruleOutput:Result<Parsable, RuleError>
         switch componentEntry {
         case .Begin:
             let nodeValue = NodeValue<ComponentValueType>.Component(componentType, ComponentIndicator.Begin)
             let node = Node(nodeValue: nodeValue)
-            ruleOutput = RuleOutput.Node(node)
+            ruleOutput = Result.success(node)
             break
         case .End:
             let nodeValue = NodeValue<ComponentValueType>.Component(componentType, ComponentIndicator.End)
             let node = Node(nodeValue: nodeValue)
-            ruleOutput = RuleOutput.Node(node)
+            ruleOutput = Result.success(node)
             break
         }
         return ruleOutput

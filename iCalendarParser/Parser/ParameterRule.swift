@@ -17,15 +17,15 @@ enum ParameterName: String, RawRepresentable {
 struct ParameterRule<T: Equatable>: Rule {
     let valueMapper: AnyValueMapper<T>
     
-    internal func invokeRule(tokens: [Token]) -> RuleOutput {
+    internal func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard tokens.count >= 3 else {
-            return RuleOutput.None(RuleError.UnexpectedTokenCount)
+            return Result.failure(RuleError.UnexpectedTokenCount)
         }
         guard tokens[1] == Token.parameterValueSeparator else {
-            return RuleOutput.None(RuleError.IncorrectSeparator)
+            return Result.failure(RuleError.IncorrectSeparator)
         }
         
-        var ruleOutput:RuleOutput
+        var ruleOutput:Result<Parsable, RuleError>
         switch (tokens[0], tokens[2]) {
         case (.identifier(let name), .identifier(let value)):
             if let name = ParameterName(rawValue: name) {
@@ -34,17 +34,17 @@ struct ParameterRule<T: Equatable>: Rule {
                 case .value(let innerValue):
                     let nodeValue = NodeValue.Parameter(name, innerValue)
                     let node = Node(nodeValue: nodeValue)
-                    ruleOutput = RuleOutput.Node(node)
+                    ruleOutput = Result.success(node)
                 case .error(let error):
-                    ruleOutput = RuleOutput.None(error)
+                    ruleOutput = Result.failure(error)
                 }
                 
             } else {
-                ruleOutput = RuleOutput.None(RuleError.UnexpectedName)
+                ruleOutput = Result.failure(RuleError.UnexpectedName)
             }
             break
         default:
-            ruleOutput = RuleOutput.None(RuleError.UnexpectedTokenType)
+            ruleOutput = Result.failure(RuleError.UnexpectedTokenType)
             break
         }
         

@@ -8,29 +8,6 @@
 
 import Foundation
 
-//enum ValueResult<T: Equatable>: Equatable {
-//    case value(T)
-//    case error(RuleError)
-//    
-//    static func == (lhs: ValueResult, rhs: ValueResult) -> Bool {
-//        switch (lhs, rhs) {
-//        case (.value(let lhsInnerValue), .value(let rhsInnerValue)):
-//            return lhsInnerValue == rhsInnerValue
-//        default:
-//            return false
-//        }
-//    }
-//    
-//    func flatMap() -> T? {
-//        switch self {
-//        case .value(let innerValue):
-//            return innerValue
-//        case .error:
-//            return nil
-//        }
-//    }
-//}
-
 protocol ValueMapper {
     associatedtype ValueType: Equatable
     func mapValue(value: String) -> Result<ValueType, RuleError>

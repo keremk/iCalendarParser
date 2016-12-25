@@ -31,7 +31,7 @@ class ComponentRuleTests: XCTestCase, Assertable {
     func assertError(tokens: [Token], expectedError: RuleError) {
         let ruleOutput = ComponentRule().invokeRule(tokens: tokens)
         
-        assertError2(result: ruleOutput, expectedError: expectedError)
+        assertFailure(result: ruleOutput, expectedError: expectedError)
     }
     
     func testExistingRuleWithBegin() {

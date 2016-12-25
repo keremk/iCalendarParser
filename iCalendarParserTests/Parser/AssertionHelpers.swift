@@ -10,16 +10,20 @@ import Foundation
 import XCTest
 
 protocol Assertable {
-    func assertFailure<T>(value: ValueResult<T>, expectedError: RuleError)
+    func assertValue<T: Equatable>(result: Result<T, RuleError>, expectedValue: T)
+    func assertNodeValue<T>(result: Result<Parsable, RuleError>, expectedNodeValue: NodeValue<T>)
+    func assertFailure<T>(result: Result<T, RuleError>, expectedError: RuleError)
 }
 
 extension Assertable {
-    func assertFailure<T>(value: ValueResult<T>, expectedError: RuleError) {
-        switch value {
-        case .value(_):
-            XCTFail("Not expecting a value")
-        case .error(let error):
-            XCTAssert(error == expectedError)
+    func assertValue<T: Equatable>(result: Result<T, RuleError>, expectedValue: T) {
+        let result = result.flatMap { (value) -> Result<T, RuleError> in
+            XCTAssert(value == expectedValue)
+            return .success(value) // TODO: Find a better way. For now this is always called by Node result types
+        }
+        
+        if case .failure(let error) = result {
+            XCTFail("Expecting to success, instead failed with \(error.localizedDescription)")
         }
     }
     
@@ -34,10 +38,9 @@ extension Assertable {
         if case .failure(let error) = result {
             XCTFail("Expecting to success, instead failed with \(error.localizedDescription)")
         }
-        
     }
     
-    func assertError2<T>(result: Result<T, RuleError>, expectedError: RuleError) {
+    func assertFailure<T>(result: Result<T, RuleError>, expectedError: RuleError) {
         switch result {
         case .success(_):
             XCTFail("Expecting a RuleError, got a Node instead")

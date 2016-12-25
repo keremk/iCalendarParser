@@ -9,25 +9,25 @@
 import Foundation
 
 struct BooleanMapper: ValueMapper {
-    internal func mapValue(value: String) -> ValueResult<Bool> {
-        var result: ValueResult<Bool>
+    internal func mapValue(value: String) -> Result<Bool, RuleError> {
+        var result: Result<Bool, RuleError>
         if let boolValue = Bool(value.lowercased()) {
-            result = ValueResult<Bool>.value(boolValue)
+            result = .success(boolValue)
         } else {
-            result = ValueResult<Bool>.error(RuleError.UnexpectedValue)
+            result = .failure(RuleError.UnexpectedValue)
         }
         return result
     }
 }
 
 struct TextMapper: ValueMapper {
-    internal func mapValue(value: String) -> ValueResult<String> {
-        return ValueResult.value(value)
+    internal func mapValue(value: String) -> Result<String, RuleError>  {
+        return .success(value)
     }
 }
 
 struct CalenderUserAddressMapper: ValueMapper {
-    internal func mapValue(value: String) -> ValueResult<String> {
-        return ValueResult.value(value)
+    internal func mapValue(value: String) -> Result<String, RuleError>  {
+        return .success(value)
     }
 }

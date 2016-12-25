@@ -21,19 +21,15 @@ class BasicMappersTests: XCTestCase, Assertable {
     }
     
     func testBooleanMapper() {
-        var boolString = "TRUE"
-        var boolValue = BooleanMapper().mapValue(value: boolString).flatMap()!
-        XCTAssert(boolValue == true)
+        var result = BooleanMapper().mapValue(value: "TRUE")
+        assertValue(result: result, expectedValue: true)
         
-        boolString = "FALSE"
-        boolValue = BooleanMapper().mapValue(value: boolString).flatMap()!
-        XCTAssert(boolValue == false)
+        result = BooleanMapper().mapValue(value: "FALSE")
+        assertValue(result: result, expectedValue: false)
     }
     
     func testBooleanMapperWithIncorrectValue() {
-        let boolString = "GOBBLEDYGOOK"
-        let boolValue = BooleanMapper().mapValue(value: boolString)
-        
-        assertFailure(value: boolValue, expectedError: RuleError.UnexpectedValue)
+        let result = BooleanMapper().mapValue(value: "GOBBLEDYGOOK")
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
     }
 }

@@ -21,19 +21,15 @@ class PeriodOfTimeMapperTests: XCTestCase, Assertable {
     }
     
     func testDuration() {
-        let durationString = "P1DT12H5M"
         let expectedDuration = Duration(isNegative: false, days: 1, weeks: nil, hours: 12, minutes: 5, seconds: nil)
-        let duration = DurationMapper().mapValue(value: durationString).flatMap()
-        
-        XCTAssert(duration == expectedDuration)
+        let result = DurationMapper().mapValue(value: "P1DT12H5M")
+        assertValue(result: result, expectedValue: expectedDuration)
     }
     
     func testNegativeDuration() {
-        let durationString = "-P1DT12H5S"
         let expectedDuration = Duration(isNegative: true, days: 1, weeks: nil, hours: 12, minutes: nil, seconds: 5)
-        let duration = DurationMapper().mapValue(value: durationString).flatMap()
-        
-        XCTAssert(duration == expectedDuration)
+        let result = DurationMapper().mapValue(value: "-P1DT12H5S")
+        assertValue(result: result, expectedValue: expectedDuration)
     }
     
     func testIncorrectInputs() {

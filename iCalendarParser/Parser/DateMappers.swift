@@ -100,38 +100,32 @@ extension DateTimeParser {
 }
 
 struct DateMapper: ValueMapper, DateTimeParser {
+    
     // https://icalendar.org/iCalendar-RFC-5545/3-3-4-date.html
-    internal func mapValue(value: String) -> ValueResult<Date> {
-        var result:ValueResult<Date>
-        
+    internal func mapValue(value: String) -> Result<Date, RuleError>  {
         if let date = parseDateTime(dateValue: value) {
-            result = ValueResult.value(date)
+            return .success(date)
         } else {
-            result = ValueResult.error(RuleError.UnexpectedValue)
+            return .failure(RuleError.UnexpectedValue)
         }
-        
-        return result
     }
 }
 
 struct DateTimeMapper: ValueMapper, DateTimeParser {
-    // https://icalendar.org/iCalendar-RFC-5545/3-3-5-date-time.html
     
-    internal func mapValue(value: String) -> ValueResult<Date> {
+    // https://icalendar.org/iCalendar-RFC-5545/3-3-5-date-time.html
+    internal func mapValue(value: String) -> Result<Date, RuleError> {
         let dateTimeComponents = value.components(separatedBy: "T")
         guard (dateTimeComponents.count == 2) else {
-            return ValueResult.error(RuleError.UnexpectedValue)
+            return .failure(RuleError.UnexpectedValue)
         }
         let dateString = dateTimeComponents[0]
         let timeString = dateTimeComponents[1]
         
-        var result:ValueResult<Date>
         if let date = parseDateTime(dateValue: dateString, timeValue: timeString) {
-            result = ValueResult.value(date)
+            return .success(date)
         } else {
-            result = ValueResult.error(RuleError.UnexpectedValue)
-        }
-        
-        return result
+            return .failure(RuleError.UnexpectedValue)
+        }        
     }
 }

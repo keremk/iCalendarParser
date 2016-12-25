@@ -23,11 +23,6 @@ enum RuleError: Error {
     case UndefinedTokenIdentifier
 }
 
-//enum RuleOutput {
-//    case Node(Parsable)
-//    case None(RuleError)
-//}
-
 struct Rules: Rule {
     let ruleSet:[String:Rule] = [
         "BEGIN": ComponentRule(),
@@ -41,7 +36,7 @@ struct Rules: Rule {
 
     public func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard let firstToken = tokens.first else {
-            return Result.failure(RuleError.UnexpectedTokenCount)
+            return .failure(RuleError.UnexpectedTokenCount)
         }
         
         var ruleOutput: Result<Parsable, RuleError>
@@ -50,11 +45,11 @@ struct Rules: Rule {
             if let rule = ruleSet[identifier] {
                 ruleOutput = rule.invokeRule(tokens: tokens)
             } else {
-                ruleOutput = Result.failure(RuleError.UndefinedTokenIdentifier)
+                ruleOutput = .failure(RuleError.UndefinedTokenIdentifier)
             }
             break
         default:
-            ruleOutput = Result.failure(RuleError.UnexpectedTokenType)
+            ruleOutput = .failure(RuleError.UnexpectedTokenType)
         }
         
         return ruleOutput

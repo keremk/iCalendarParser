@@ -30,7 +30,7 @@ class PropertyRuleTests: XCTestCase, Assertable {
     func assertError(tokens: [Token], expectedError: RuleError) {
         let ruleOutput = PropertyRule().invokeRule(tokens: tokens)
         
-        assertError2(result: ruleOutput, expectedError: expectedError)
+        assertFailure(result: ruleOutput, expectedError: expectedError)
     }
     
     func testSimpleNameValueProperty() {

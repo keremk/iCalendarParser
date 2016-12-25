@@ -11,7 +11,7 @@ import Foundation
 struct DurationMapper: ValueMapper {
     
     // https://icalendar.org/iCalendar-RFC-5545/3-3-6-duration.html
-    internal func mapValue(value: String) -> ValueResult<Duration> {
+    internal func mapValue(value: String) -> Result<Duration, RuleError> {
         var durationLexer = DurationLexer(input: value)
         let tokens = durationLexer.scan()
 
@@ -45,6 +45,6 @@ struct DurationMapper: ValueMapper {
             }
         }
         
-        return ValueResult<Duration>.value(duration)
+        return .success(duration)
     }
 }

@@ -22,7 +22,7 @@ class RulesTests: XCTestCase, Assertable {
     
     func assertError(tokens: [Token], expectedError: RuleError) {
         let ruleOutput = Rules().invokeRule(tokens: tokens)
-        assertError2(result: ruleOutput, expectedError: expectedError)
+        assertFailure(result: ruleOutput, expectedError: expectedError)
     }
     
     func testExistingRule() {

@@ -26,10 +26,10 @@ enum ComponentType: String, RawRepresentable {
 struct ComponentRule: Rule {
     internal func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard tokens.count >= 3 else {
-            return Result.failure(RuleError.UnexpectedTokenCount)
+            return .failure(RuleError.UnexpectedTokenCount)
         }
         guard tokens[1] == Token.valueSeparator else {
-            return Result.failure(RuleError.IncorrectSeparator)
+            return .failure(RuleError.IncorrectSeparator)
         }
         
         var ruleOutput:Result<Parsable, RuleError>
@@ -38,7 +38,7 @@ struct ComponentRule: Rule {
             ruleOutput = createNode(name: name, value: value)
             break
         default:
-            ruleOutput = Result.failure(RuleError.UnexpectedTokenType)
+            ruleOutput = .failure(RuleError.UnexpectedTokenType)
             break
         }
         
@@ -47,10 +47,10 @@ struct ComponentRule: Rule {
     
     private func createNode(name:String, value:String) -> Result<Parsable, RuleError> {
         guard let componentEntry = ComponentIndicator(rawValue: name) else {
-            return Result.failure(RuleError.UnexpectedName)
+            return .failure(RuleError.UnexpectedName)
         }
         guard let componentType = ComponentType(rawValue: value) else {
-            return Result.failure(RuleError.UnexpectedValue)
+            return .failure(RuleError.UnexpectedValue)
         }
         
         var ruleOutput:Result<Parsable, RuleError>
@@ -58,12 +58,12 @@ struct ComponentRule: Rule {
         case .Begin:
             let nodeValue = NodeValue<ComponentValueType>.Component(componentType, ComponentIndicator.Begin)
             let node = Node(nodeValue: nodeValue)
-            ruleOutput = Result.success(node)
+            ruleOutput = .success(node)
             break
         case .End:
             let nodeValue = NodeValue<ComponentValueType>.Component(componentType, ComponentIndicator.End)
             let node = Node(nodeValue: nodeValue)
-            ruleOutput = Result.success(node)
+            ruleOutput = .success(node)
             break
         }
         return ruleOutput

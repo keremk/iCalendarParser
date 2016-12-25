@@ -18,10 +18,10 @@ enum PropertyName: String, RawRepresentable {
 struct PropertyRule: Rule {
     internal func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard tokens.count >= 3 else {
-            return Result.failure(RuleError.UnexpectedTokenCount)
+            return .failure(RuleError.UnexpectedTokenCount)
         }
         guard tokens[1] == Token.valueSeparator else {
-            return Result.failure(RuleError.IncorrectSeparator)
+            return .failure(RuleError.IncorrectSeparator)
         }
         
         var ruleOutput:Result<Parsable, RuleError>
@@ -30,13 +30,13 @@ struct PropertyRule: Rule {
             if let propertyName = PropertyName(rawValue: name) {
                 let nodeValue = NodeValue.Property(propertyName, value)
                 let node = Node(nodeValue: nodeValue)
-                ruleOutput = Result.success(node)
+                ruleOutput = .success(node)
             } else {
-                ruleOutput = Result.failure(RuleError.UnexpectedName)
+                ruleOutput = .failure(RuleError.UnexpectedName)
             }
             break
         default:
-            ruleOutput = Result.failure(RuleError.UnexpectedTokenType)
+            ruleOutput = .failure(RuleError.UnexpectedTokenType)
             break
         }
         

@@ -111,6 +111,19 @@ struct DateMapper: ValueMapper, DateTimeParser {
     }
 }
 
+struct TimeMapper: ValueMapper, DateTimeParser {
+    
+    // https://icalendar.org/iCalendar-RFC-5545/3-3-12-time.html
+    internal func mapValue(value: String) -> Result<Date, RuleError> {
+
+        if let time = parseDateTime(dateValue: nil, timeValue: value) {
+            return .success(time)
+        } else {
+            return .failure(RuleError.UnexpectedValue)
+        }
+    }
+}
+
 struct DateTimeMapper: ValueMapper, DateTimeParser {
     
     // https://icalendar.org/iCalendar-RFC-5545/3-3-5-date-time.html

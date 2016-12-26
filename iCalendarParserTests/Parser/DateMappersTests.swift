@@ -20,7 +20,9 @@ class DateMappersTests: XCTestCase, Assertable {
         super.tearDown()
     }
     
-    func dateFrom(year: Int, month: Int, day: Int, hour: Int? = nil, minute: Int? = nil, second: Int? = nil, timeZone: TimeZone = TimeZone.current) -> Date {
+    func dateFrom(year: Int? = nil, month: Int? = nil, day: Int? = nil,
+                  hour: Int? = nil, minute: Int? = nil, second: Int? = nil,
+                  timeZone: TimeZone = TimeZone.current) -> Date {
         let dateComponents = DateComponents(calendar: Calendar.current, timeZone: timeZone, era: nil,
                                             year: year, month: month, day: day,
                                             hour: hour, minute: minute, second: second,
@@ -54,6 +56,16 @@ class DateMappersTests: XCTestCase, Assertable {
         
         result = DateMapper().mapValue(value: "1av70712")
         assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
+    }
+    
+    func testTimeMapper() {
+        var result = TimeMapper().mapValue(value: "230000")
+        var expectedTime = dateFrom(year: nil, month: nil, day: nil, hour: 23, minute: 0, second: 0)
+        assertValue(result: result, expectedValue: expectedTime)
+        
+        result = TimeMapper().mapValue(value: "230000Z")
+        expectedTime = dateFrom(year: nil, month: nil, day: nil, hour: 23, minute: 0, second: 0, timeZone: TimeZone(secondsFromGMT: 0)!)
+        assertValue(result: result, expectedValue: expectedTime)
     }
     
     func testDateTimeMapper() {

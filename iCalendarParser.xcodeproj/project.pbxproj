@@ -7,11 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7702F8821E055C9E00A65939 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8811E055C9E00A65939 /* Token.swift */; };
-		7702F8831E055C9E00A65939 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8811E055C9E00A65939 /* Token.swift */; };
 		7702F8851E0560D700A65939 /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8841E0560D700A65939 /* TokenTests.swift */; };
-		7702F8871E06AE7200A65939 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8861E06AE7200A65939 /* StringUtils.swift */; };
-		7702F8881E06AE7200A65939 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8861E06AE7200A65939 /* StringUtils.swift */; };
 		7702F88A1E07035A00A65939 /* ValueTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F8891E07035A00A65939 /* ValueTypesTests.swift */; };
 		7702F88C1E07504300A65939 /* StringUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7702F88B1E07504300A65939 /* StringUtilsTests.swift */; };
 		77174F9D1E0D772600B8FF56 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77174F9C1E0D772600B8FF56 /* Result.swift */; };
@@ -54,6 +50,10 @@
 		776F53331DFD3DD10011B55D /* ValueTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776F53311DFD3DD10011B55D /* ValueTypes.swift */; };
 		776F53351DFD73220011B55D /* PropertyRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776F53341DFD73220011B55D /* PropertyRuleTests.swift */; };
 		77791CA31DD884E4003FD445 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77791CA21DD884E4003FD445 /* LexerTests.swift */; };
+		778228F51E112B7A00B5C99C /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228F41E112B7A00B5C99C /* StringUtils.swift */; };
+		778228F61E112B7A00B5C99C /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228F41E112B7A00B5C99C /* StringUtils.swift */; };
+		778228F81E112B8400B5C99C /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228F71E112B8400B5C99C /* Token.swift */; };
+		778228F91E112B8400B5C99C /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228F71E112B8400B5C99C /* Token.swift */; };
 		77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 		77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 /* End PBXBuildFile section */
@@ -69,21 +69,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7702F8811E055C9E00A65939 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		7702F8841E0560D700A65939 /* TokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenTests.swift; sourceTree = "<group>"; };
-		7702F8861E06AE7200A65939 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
-		7702F8891E07035A00A65939 /* ValueTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueTypesTests.swift; sourceTree = "<group>"; };
-		7702F88B1E07504300A65939 /* StringUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtilsTests.swift; sourceTree = "<group>"; };
+		7702F8841E0560D700A65939 /* TokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TokenTests.swift; path = Common/TokenTests.swift; sourceTree = "<group>"; };
+		7702F8891E07035A00A65939 /* ValueTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueTypesTests.swift; path = ValueMappers/ValueTypesTests.swift; sourceTree = "<group>"; };
+		7702F88B1E07504300A65939 /* StringUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringUtilsTests.swift; path = Common/StringUtilsTests.swift; sourceTree = "<group>"; };
 		77174F9C1E0D772600B8FF56 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Common/Result.swift; sourceTree = "<group>"; };
-		772298631E0D307000707204 /* DateMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMappers.swift; sourceTree = "<group>"; };
-		772298661E0D308A00707204 /* DateMappersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateMappersTests.swift; sourceTree = "<group>"; };
-		772298681E0D319900707204 /* AssertionHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertionHelpers.swift; sourceTree = "<group>"; };
-		7722986A1E0D3E7500707204 /* ValueMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueMapper.swift; sourceTree = "<group>"; };
-		7722986D1E0D3ED600707204 /* ValueMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueMapperTests.swift; sourceTree = "<group>"; };
-		7722986F1E0D3F3D00707204 /* BasicMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicMappers.swift; sourceTree = "<group>"; };
-		772298721E0D3F7500707204 /* BasicMappersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicMappersTests.swift; sourceTree = "<group>"; };
-		772298741E0D527300707204 /* DurationMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationMapper.swift; sourceTree = "<group>"; };
-		772298771E0D52A800707204 /* DurationMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationMapperTests.swift; sourceTree = "<group>"; };
+		772298631E0D307000707204 /* DateMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateMappers.swift; path = ValueMappers/DateMappers.swift; sourceTree = "<group>"; };
+		772298661E0D308A00707204 /* DateMappersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateMappersTests.swift; path = ValueMappers/DateMappersTests.swift; sourceTree = "<group>"; };
+		772298681E0D319900707204 /* AssertionHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssertionHelpers.swift; path = Parser/AssertionHelpers.swift; sourceTree = "<group>"; };
+		7722986A1E0D3E7500707204 /* ValueMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueMapper.swift; path = ValueMappers/ValueMapper.swift; sourceTree = "<group>"; };
+		7722986D1E0D3ED600707204 /* ValueMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueMapperTests.swift; path = ValueMappers/ValueMapperTests.swift; sourceTree = "<group>"; };
+		7722986F1E0D3F3D00707204 /* BasicMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMappers.swift; path = ValueMappers/BasicMappers.swift; sourceTree = "<group>"; };
+		772298721E0D3F7500707204 /* BasicMappersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMappersTests.swift; path = ValueMappers/BasicMappersTests.swift; sourceTree = "<group>"; };
+		772298741E0D527300707204 /* DurationMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DurationMapper.swift; path = ValueMappers/DurationMapper.swift; sourceTree = "<group>"; };
+		772298771E0D52A800707204 /* DurationMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DurationMapperTests.swift; path = ValueMappers/DurationMapperTests.swift; sourceTree = "<group>"; };
 		772298791E0D54C500707204 /* DurationLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationLexer.swift; sourceTree = "<group>"; };
 		7722987C1E0D54DB00707204 /* DurationLexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationLexerTests.swift; sourceTree = "<group>"; };
 		773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIteratorTests.swift; sourceTree = "<group>"; };
@@ -101,9 +99,11 @@
 		776F53291DFC4F890011B55D /* PropertyRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyRule.swift; sourceTree = "<group>"; };
 		776F532C1DFC502E0011B55D /* ParameterRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterRule.swift; sourceTree = "<group>"; };
 		776F532F1DFD3D860011B55D /* ComponentRuleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentRuleTests.swift; sourceTree = "<group>"; };
-		776F53311DFD3DD10011B55D /* ValueTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueTypes.swift; sourceTree = "<group>"; };
+		776F53311DFD3DD10011B55D /* ValueTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueTypes.swift; path = ValueMappers/ValueTypes.swift; sourceTree = "<group>"; };
 		776F53341DFD73220011B55D /* PropertyRuleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyRuleTests.swift; sourceTree = "<group>"; };
 		77791CA21DD884E4003FD445 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
+		778228F41E112B7A00B5C99C /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringUtils.swift; path = Common/StringUtils.swift; sourceTree = "<group>"; };
+		778228F71E112B8400B5C99C /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Common/Token.swift; sourceTree = "<group>"; };
 		77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIterator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				77174F9C1E0D772600B8FF56 /* Result.swift */,
+				778228F41E112B7A00B5C99C /* StringUtils.swift */,
+				778228F71E112B8400B5C99C /* Token.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -158,6 +160,7 @@
 				77174F9B1E0D76F200B8FF56 /* Common */,
 				776F53371DFD76090011B55D /* Lexer */,
 				776F53361DFD75FE0011B55D /* Parser */,
+				77C827B71E11284000B2B63F /* ValueMappers */,
 				7755581F1DD7520900BA9027 /* iCalendarParser.h */,
 				775558201DD7520900BA9027 /* Info.plist */,
 			);
@@ -167,8 +170,10 @@
 		775558291DD7520900BA9027 /* iCalendarParserTests */ = {
 			isa = PBXGroup;
 			children = (
+				77C827B81E11286A00B2B63F /* Common */,
 				776F53391DFD7A6A0011B55D /* Lexer */,
 				776F53381DFD7A620011B55D /* Parser */,
+				77C827B91E11288900B2B63F /* ValueMappers */,
 				7755582C1DD7520900BA9027 /* Info.plist */,
 			);
 			path = iCalendarParserTests;
@@ -182,12 +187,6 @@
 				776F53261DFC4F4D0011B55D /* ComponentRule.swift */,
 				776F53291DFC4F890011B55D /* PropertyRule.swift */,
 				776F532C1DFC502E0011B55D /* ParameterRule.swift */,
-				776F53311DFD3DD10011B55D /* ValueTypes.swift */,
-				7722986A1E0D3E7500707204 /* ValueMapper.swift */,
-				7722986F1E0D3F3D00707204 /* BasicMappers.swift */,
-				772298631E0D307000707204 /* DateMappers.swift */,
-				772298741E0D527300707204 /* DurationMapper.swift */,
-				7702F8861E06AE7200A65939 /* StringUtils.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -197,7 +196,6 @@
 			children = (
 				77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */,
 				775558361DD7532500BA9027 /* Lexer.swift */,
-				7702F8811E055C9E00A65939 /* Token.swift */,
 				772298791E0D54C500707204 /* DurationLexer.swift */,
 			);
 			path = Lexer;
@@ -210,13 +208,6 @@
 				773880EC1DF445DA00746CC8 /* RulesTests.swift */,
 				776F532F1DFD3D860011B55D /* ComponentRuleTests.swift */,
 				776F53341DFD73220011B55D /* PropertyRuleTests.swift */,
-				7702F8891E07035A00A65939 /* ValueTypesTests.swift */,
-				7722986D1E0D3ED600707204 /* ValueMapperTests.swift */,
-				772298721E0D3F7500707204 /* BasicMappersTests.swift */,
-				772298661E0D308A00707204 /* DateMappersTests.swift */,
-				772298771E0D52A800707204 /* DurationMapperTests.swift */,
-				7702F88B1E07504300A65939 /* StringUtilsTests.swift */,
-				772298681E0D319900707204 /* AssertionHelpers.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -226,10 +217,43 @@
 			children = (
 				773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */,
 				77791CA21DD884E4003FD445 /* LexerTests.swift */,
-				7702F8841E0560D700A65939 /* TokenTests.swift */,
 				7722987C1E0D54DB00707204 /* DurationLexerTests.swift */,
 			);
 			path = Lexer;
+			sourceTree = "<group>";
+		};
+		77C827B71E11284000B2B63F /* ValueMappers */ = {
+			isa = PBXGroup;
+			children = (
+				776F53311DFD3DD10011B55D /* ValueTypes.swift */,
+				7722986A1E0D3E7500707204 /* ValueMapper.swift */,
+				7722986F1E0D3F3D00707204 /* BasicMappers.swift */,
+				772298631E0D307000707204 /* DateMappers.swift */,
+				772298741E0D527300707204 /* DurationMapper.swift */,
+			);
+			name = ValueMappers;
+			sourceTree = "<group>";
+		};
+		77C827B81E11286A00B2B63F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7702F8841E0560D700A65939 /* TokenTests.swift */,
+				772298681E0D319900707204 /* AssertionHelpers.swift */,
+				7702F88B1E07504300A65939 /* StringUtilsTests.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		77C827B91E11288900B2B63F /* ValueMappers */ = {
+			isa = PBXGroup;
+			children = (
+				7702F8891E07035A00A65939 /* ValueTypesTests.swift */,
+				7722986D1E0D3ED600707204 /* ValueMapperTests.swift */,
+				772298721E0D3F7500707204 /* BasicMappersTests.swift */,
+				772298661E0D308A00707204 /* DateMappersTests.swift */,
+				772298771E0D52A800707204 /* DurationMapperTests.swift */,
+			);
+			name = ValueMappers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,11 +376,11 @@
 				776F53271DFC4F4D0011B55D /* ComponentRule.swift in Sources */,
 				772298641E0D307000707204 /* DateMappers.swift in Sources */,
 				77174F9D1E0D772600B8FF56 /* Result.swift in Sources */,
-				7702F8821E055C9E00A65939 /* Token.swift in Sources */,
 				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
+				778228F81E112B8400B5C99C /* Token.swift in Sources */,
 				773880E51DF415CA00746CC8 /* Parser.swift in Sources */,
+				778228F51E112B7A00B5C99C /* StringUtils.swift in Sources */,
 				7722987A1E0D54C500707204 /* DurationLexer.swift in Sources */,
-				7702F8871E06AE7200A65939 /* StringUtils.swift in Sources */,
 				776F532A1DFC4F890011B55D /* PropertyRule.swift in Sources */,
 				7722986B1E0D3E7500707204 /* ValueMapper.swift in Sources */,
 				776F532D1DFC502E0011B55D /* ParameterRule.swift in Sources */,
@@ -382,12 +406,13 @@
 				7722987B1E0D54C500707204 /* DurationLexer.swift in Sources */,
 				77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				7702F88C1E07504300A65939 /* StringUtilsTests.swift in Sources */,
-				7702F8831E055C9E00A65939 /* Token.swift in Sources */,
 				7702F8851E0560D700A65939 /* TokenTests.swift in Sources */,
 				772298651E0D307000707204 /* DateMappers.swift in Sources */,
 				7722986E1E0D3ED600707204 /* ValueMapperTests.swift in Sources */,
+				778228F91E112B8400B5C99C /* Token.swift in Sources */,
 				773880E81DF415F900746CC8 /* ParserTests.swift in Sources */,
 				773880E61DF415CA00746CC8 /* Parser.swift in Sources */,
+				778228F61E112B7A00B5C99C /* StringUtils.swift in Sources */,
 				772298731E0D3F7500707204 /* BasicMappersTests.swift in Sources */,
 				772298781E0D52A800707204 /* DurationMapperTests.swift in Sources */,
 				772298711E0D3F3D00707204 /* BasicMappers.swift in Sources */,
@@ -398,7 +423,6 @@
 				776F53331DFD3DD10011B55D /* ValueTypes.swift in Sources */,
 				77791CA31DD884E4003FD445 /* LexerTests.swift in Sources */,
 				776F532E1DFC502E0011B55D /* ParameterRule.swift in Sources */,
-				7702F8881E06AE7200A65939 /* StringUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

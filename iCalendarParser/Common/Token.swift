@@ -81,7 +81,7 @@ extension Token {
 extension Array where Element: TokenProtocol {
     typealias SplitTokens = ([[Token]], Int)
 
-    internal func groupTokens() -> [[Token]] {
+    internal func groupTokens2() -> [[Token]] {
         let splitTokens = self.reduce( ([[]], 0)) { (splitTokens, token) -> SplitTokens in
             guard let token = token as? Token else {
                 return splitTokens
@@ -112,4 +112,72 @@ extension Array where Element: TokenProtocol {
         
         return splitTokens.0
     }
+    
+    internal func groupTokens() -> [[Token]] {
+        let tokens = splitTokens(by: Token.valueSeparator)
+        
+        guard tokens.count == 2 else {
+            return [[]]
+        }
+        
+        var leftSideTokens = tokens[0]
+        guard leftSideTokens.count >= 1 else {
+            return [[]]
+        }
+        
+        let rightSideTokens = tokens[1]
+        guard rightSideTokens.count >= 1 else {
+            return [[]]
+        }
+
+        
+        var propertyTokens:[Token] = []
+        var parameterTokens:[[Token]] = [[]]
+
+        propertyTokens.append(leftSideTokens[0])
+        propertyTokens.append(Token.valueSeparator)
+
+        if leftSideTokens.count > 1 && leftSideTokens[1] == Token.parameterSeparator {
+            // This is the type of property with parameters.
+            leftSideTokens.removeFirst(2)
+            parameterTokens = leftSideTokens.splitTokens(by: Token.parameterSeparator)
+        }
+        
+        if rightSideTokens.count > 1 && rightSideTokens[1] == Token.parameterValueSeparator {
+            // This is the type of property with value of parameters
+            parameterTokens = rightSideTokens.splitTokens(by: Token.parameterSeparator)
+            propertyTokens.append(Token.identifier(""))
+        } else {
+            propertyTokens.append(contentsOf: rightSideTokens)
+        }
+        
+        return [propertyTokens] + parameterTokens
+    }
+    
+    internal func splitTokens(by: Token) -> [[Token]] {
+        let splitTokens = self.reduce( ([[]], 0)) { (splitTokens, token) -> SplitTokens in
+            guard let token = token as? Token else {
+                return splitTokens
+            }
+            var destination = splitTokens.1
+            var newTokens:[[Token]] = splitTokens.0
+            
+            switch token {
+            case by:
+                destination += 1
+                var tokens = splitTokens.0
+                tokens.append([])
+                newTokens = tokens
+                break
+            default:
+                var tokens = splitTokens.0[destination]
+                tokens.append(token)
+                newTokens[destination] = tokens
+            }
+            return (newTokens, destination)
+        }
+        
+        return splitTokens.0
+    }
+    
 }

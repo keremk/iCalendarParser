@@ -20,17 +20,6 @@ class DateMappersTests: XCTestCase, Assertable {
         super.tearDown()
     }
     
-    func dateFrom(year: Int? = nil, month: Int? = nil, day: Int? = nil,
-                  hour: Int? = nil, minute: Int? = nil, second: Int? = nil,
-                  timeZone: TimeZone = TimeZone.current) -> Date {
-        let dateComponents = DateComponents(calendar: Calendar.current, timeZone: timeZone, era: nil,
-                                            year: year, month: month, day: day,
-                                            hour: hour, minute: minute, second: second,
-                                            nanosecond: nil, weekday: nil, weekdayOrdinal: nil,
-                                            quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
-        return dateComponents.date!
-    }
-
     func testDateMapper() {
         // https://icalendar.org/iCalendar-RFC-5545/3-3-4-date.html
         

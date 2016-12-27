@@ -8,7 +8,7 @@
 
 import XCTest
 
-class PeriodOfTimeMapperTests: XCTestCase, Assertable {
+class DurationMapperTests: XCTestCase, Assertable {
     
     override func setUp() {
         super.setUp()

@@ -15,7 +15,9 @@ enum PropertyName: String, RawRepresentable {
     case Attendee = "ATTENDEE"
 }
 
-struct PropertyRule: Rule {
+struct PropertyRule<T: Equatable>: Rule {
+    let valueMapper: AnyValueMapper<T>
+
     internal func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard tokens.count >= 3 else {
             return .failure(RuleError.UnexpectedTokenCount)
@@ -27,10 +29,16 @@ struct PropertyRule: Rule {
         var ruleOutput:Result<Parsable, RuleError>
         switch (tokens[0], tokens[2]) {
         case (.identifier(let name), .identifier(let value)):
-            if let propertyName = PropertyName(rawValue: name) {
-                let nodeValue = NodeValue.Property(propertyName, value)
-                let node = Node(nodeValue: nodeValue)
-                ruleOutput = .success(node)
+            if let name = PropertyName(rawValue: name) {
+                let mappedValue = valueMapper.mapValue(value: value)
+                switch mappedValue {
+                case .success(let innerValue):
+                    let nodeValue = NodeValue.Property(name, innerValue)
+                    let node = Node(nodeValue: nodeValue)
+                    ruleOutput = .success(node)
+                case .failure(let error):
+                    ruleOutput = .failure(error)
+                }
             } else {
                 ruleOutput = .failure(RuleError.UnexpectedName)
             }

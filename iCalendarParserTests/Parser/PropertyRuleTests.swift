@@ -20,23 +20,18 @@ class PropertyRuleTests: XCTestCase, Assertable {
         super.tearDown()
     }
     
-    func assertNode<T: Comparable>(tokens: [Token], expectedName: PropertyName, expectedValue: T) {
-        let expectedNodeValue = NodeValue<T>.Property(expectedName, expectedValue)
-        let result = PropertyRule().invokeRule(tokens: tokens)
-        
-        assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
-    }
-    
     func assertError(tokens: [Token], expectedError: RuleError) {
-        let ruleOutput = PropertyRule().invokeRule(tokens: tokens)
-        
+        let ruleOutput = PropertyRule(valueMapper: AnyValueMapper(TextMapper())).invokeRule(tokens: tokens)
         assertFailure(result: ruleOutput, expectedError: expectedError)
     }
     
     func testSimpleNameValueProperty() {
         let inputTokens = [Token.identifier("SUMMARY"), Token.valueSeparator, Token.identifier("This is a summary")]
-        assertNode(tokens: inputTokens, expectedName: PropertyName(rawValue: "SUMMARY")!,
-                   expectedValue: "This is a summary")
+        let expectedNodeValue = NodeValue<String>.Property(PropertyName.Summary, "This is a summary")
+        let result = PropertyRule(valueMapper: AnyValueMapper(TextMapper())).invokeRule(tokens: inputTokens)
+        
+        assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
+
     }
     
     func testUnexpectedTokenCount() {

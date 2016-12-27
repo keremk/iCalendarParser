@@ -27,9 +27,9 @@ struct Rules: Rule {
     let ruleSet:[String:Rule] = [
         "BEGIN": ComponentRule(),
         "END": ComponentRule(),
-        PropertyName.Version.rawValue: PropertyRule(),
-        PropertyName.Summary.rawValue: PropertyRule(),
-        PropertyName.Attendee.rawValue: PropertyRule(),
+        PropertyName.Version.rawValue: PropertyRule(valueMapper: AnyValueMapper(TextMapper())),
+        PropertyName.Summary.rawValue: PropertyRule(valueMapper: AnyValueMapper(TextMapper())),
+        PropertyName.Attendee.rawValue: PropertyRule(valueMapper: AnyValueMapper(TextMapper())),
         ParameterName.Rsvp.rawValue: ParameterRule(valueMapper: AnyValueMapper(BooleanMapper())),
         ParameterName.Cutype.rawValue: ParameterRule(valueMapper: AnyValueMapper(TextMapper()))
     ]

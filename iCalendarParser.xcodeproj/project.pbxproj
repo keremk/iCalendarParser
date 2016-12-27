@@ -61,6 +61,7 @@
 		778229011E12703D00B5C99C /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228FF1E12703D00B5C99C /* DateUtils.swift */; };
 		77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 		77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
+		77C02CF41E12C0BC00258B93 /* ParameterRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C02CF31E12C0BC00258B93 /* ParameterRuleTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		778228FD1E112CAE00B5C99C /* PeriodOfTimeMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeriodOfTimeMapperTests.swift; path = ValueMappers/PeriodOfTimeMapperTests.swift; sourceTree = "<group>"; };
 		778228FF1E12703D00B5C99C /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtils.swift; path = Common/DateUtils.swift; sourceTree = "<group>"; };
 		77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIterator.swift; sourceTree = "<group>"; };
+		77C02CF31E12C0BC00258B93 /* ParameterRuleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterRuleTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 				773880EC1DF445DA00746CC8 /* RulesTests.swift */,
 				776F532F1DFD3D860011B55D /* ComponentRuleTests.swift */,
 				776F53341DFD73220011B55D /* PropertyRuleTests.swift */,
+				77C02CF31E12C0BC00258B93 /* ParameterRuleTests.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */,
 				7702F88A1E07035A00A65939 /* ValueTypesTests.swift in Sources */,
 				7722987B1E0D54C500707204 /* DurationLexer.swift in Sources */,
+				77C02CF41E12C0BC00258B93 /* ParameterRuleTests.swift in Sources */,
 				778229011E12703D00B5C99C /* DateUtils.swift in Sources */,
 				77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				7702F88C1E07504300A65939 /* StringUtilsTests.swift in Sources */,

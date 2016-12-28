@@ -28,6 +28,27 @@ struct ComponentValueType: Equatable {
     }
 }
 
+struct MultiValued<T: Equatable>: Equatable {
+    // Why are we wrapping an array with this struct?
+    // 1. The NodeValue used in each Node needs to conform to Equatable
+    // 2. Currently in Swift, Array<T: Equatable> does not itself conform to Equatable
+    // and the language does not allow to extend it to conform to equatable. 
+    // See here for discussion https://forums.developer.apple.com/thread/7172
+    
+    let values:[T]
+    static func == (lhs: MultiValued, rhs: MultiValued) -> Bool {
+        guard lhs.values.count == rhs.values.count else {
+            return false
+        }
+        for (index, element) in lhs.values.enumerated() {
+            if (element != rhs.values[index]) {
+                return false
+            }
+        }
+        return true
+    }
+}
+
 struct Duration: Equatable {
     var isNegative:Bool // Used for alarms
     var dateComponents: DateComponents = DateComponents()

@@ -38,7 +38,6 @@ struct ParameterRule<T: Equatable>: Rule {
                 case .failure(let error):
                     ruleOutput = .failure(error)
                 }
-                
             } else {
                 ruleOutput = .failure(RuleError.UnexpectedName)
             }

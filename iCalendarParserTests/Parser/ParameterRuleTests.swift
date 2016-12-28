@@ -30,7 +30,6 @@ class ParameterRuleTests: XCTestCase, Assertable {
         let inputTokens = [Token.identifier("RSVP"), Token.parameterValueSeparator, Token.identifier("TRUE")]
         let expectedNodeValue = NodeValue<Bool>.Parameter(ParameterName.Rsvp, true)
         let result = ParameterRule(valueMapper: AnyValueMapper(BooleanMapper())).invokeRule(tokens: inputTokens)
-        
         assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
     }
     
@@ -53,5 +52,4 @@ class ParameterRuleTests: XCTestCase, Assertable {
         let inputTokens = [Token.identifier("BOGUS"), Token.parameterValueSeparator, Token.identifier("Summary")]
         assertError(tokens: inputTokens, expectedError: RuleError.UnexpectedName)
     }
-   
 }

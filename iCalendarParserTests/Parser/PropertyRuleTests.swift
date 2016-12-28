@@ -29,9 +29,14 @@ class PropertyRuleTests: XCTestCase, Assertable {
         let inputTokens = [Token.identifier("SUMMARY"), Token.valueSeparator, Token.identifier("This is a summary")]
         let expectedNodeValue = NodeValue<String>.Property(PropertyName.Summary, "This is a summary")
         let result = PropertyRule(valueMapper: AnyValueMapper(TextMapper())).invokeRule(tokens: inputTokens)
-        
         assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
-
+    }
+    
+    func testMultiValueProperty() {
+        let inputTokens = [Token.identifier("CATEGORIES"), Token.valueSeparator, Token.identifier("EDUCATION"), Token.multiValueSeparator, Token.identifier("BUSINESS")]
+        let expectedNodeValue = NodeValue<MultiValued<String>>.Property(PropertyName.Categories, MultiValued(values: ["EDUCATION", "BUSINESS"]))
+        let result = PropertyRule(valueMapper: AnyValueMapper(TextMapper()), isMultiValued: true).invokeRule(tokens: inputTokens)
+        assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
     }
     
     func testUnexpectedTokenCount() {

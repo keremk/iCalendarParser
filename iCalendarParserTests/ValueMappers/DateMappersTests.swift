@@ -21,8 +21,6 @@ class DateMappersTests: XCTestCase, Assertable {
     }
     
     func testDateMapper() {
-        // https://icalendar.org/iCalendar-RFC-5545/3-3-4-date.html
-        
         let result = DateMapper().mapValue(value: "19970714")
         let expectedDate = dateFrom(year: 1997, month: 07, day: 14)
         assertValue(result: result, expectedValue: expectedDate)
@@ -58,8 +56,6 @@ class DateMappersTests: XCTestCase, Assertable {
     }
     
     func testDateTimeMapper() {
-        // https://icalendar.org/iCalendar-RFC-5545/3-3-4-date.html
-        
         var result = DateTimeMapper().mapValue(value: "19970714T230000")
         var expectedDateTime = dateFrom(year: 1997, month: 07, day: 14, hour: 23, minute: 0, second:0)
         assertValue(result: result, expectedValue: expectedDateTime)
@@ -79,7 +75,6 @@ class DateMappersTests: XCTestCase, Assertable {
         assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
     }
     
-    
     func testDateTimeMapperIncorrectValues() {
         var result = DateTimeMapper().mapValue(value: "19970714T250000")
         assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
@@ -92,5 +87,39 @@ class DateMappersTests: XCTestCase, Assertable {
         
         result = DateTimeMapper().mapValue(value: "19970714T2300xz")
         assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
-    }    
+    }
+    
+    func testUTCOffsetMapper() {
+        var result = UTCOffsetMapper().mapValue(value: "+0200")
+        var expected = TimeZone(secondsFromGMT: 2*360)!
+        assertValue(result: result, expectedValue: expected)
+        
+        result = UTCOffsetMapper().mapValue(value: "-0530")
+        expected = TimeZone(secondsFromGMT: -1*(5*360+30*60))!
+        assertValue(result: result, expectedValue: expected)
+        
+        result = UTCOffsetMapper().mapValue(value: "-053010")
+        expected = TimeZone(secondsFromGMT: -1*(5*360+30*60+10))!
+        assertValue(result: result, expectedValue: expected)
+    }
+    
+    func testUTCOffsetMapperIncorrectLength() {
+        let result = UTCOffsetMapper().mapValue(value: "0200")
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
+    }
+    
+    func testUTCOffsetMapperIncorrectValues() {
+        var result = UTCOffsetMapper().mapValue(value: "10200")
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
+        
+        result = UTCOffsetMapper().mapValue(value: "+0260")
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
+
+        result = UTCOffsetMapper().mapValue(value: "+0260ab")
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
+
+        result = UTCOffsetMapper().mapValue(value: "+a000")
+        assertFailure(result: result, expectedError: RuleError.UnexpectedValue)
+    }
+    
 }

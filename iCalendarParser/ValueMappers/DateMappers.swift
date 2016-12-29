@@ -142,3 +142,52 @@ struct DateTimeMapper: ValueMapper, DateTimeParser {
         }        
     }
 }
+
+struct UTCOffsetMapper: ValueMapper, DateTimeParser {
+    
+    // https://icalendar.org/iCalendar-RFC-5545/3-3-14-utc-offset.html
+    // Returns in number of seconds to be used in TimeZone(forSecondsFromGMT: seconds)
+    internal func mapValue(value: String) -> Result<TimeZone, RuleError> {
+        let secondsResult = parseUTCOffset(value: value)
+        switch secondsResult {
+        case .success(let seconds):
+            if let timeZone = TimeZone(secondsFromGMT: seconds) {
+                return .success(timeZone)
+            } else {
+                return .failure(RuleError.UnexpectedValue)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+    
+    private func parseUTCOffset(value: String) -> Result<Int, RuleError>{
+        guard value.utf8.count == 5 || value.utf8.count == 7 else {
+            return .failure(RuleError.UnexpectedValue)
+        }
+        
+        guard let hour = Int(value[1..<3]), hour <= 23,
+            let minute = Int(value[3..<5]), minute <= 59 else {
+                return .failure(RuleError.UnexpectedValue)
+        }
+        
+        var sign: Int = 1
+        if value.first() == "+" {
+            sign = 1
+        } else if value.first() == "-" {
+            sign = -1
+        } else {
+            return .failure(RuleError.UnexpectedValue)
+        }
+        
+        var second:Int = 0
+        if value.utf8.count == 7,
+            let possibleSeconds = Int(value[5..<7]),
+            possibleSeconds <= 59 {
+            second = possibleSeconds
+        }
+        
+        return .success(sign * (hour * 360 + minute * 60 + second))
+    }
+
+}

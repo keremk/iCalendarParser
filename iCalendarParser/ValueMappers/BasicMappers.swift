@@ -38,8 +38,52 @@ struct TextMapper: ValueMapper {
     }
 }
 
-struct CalenderUserAddressMapper: ValueMapper {
-    internal func mapValue(value: String) -> Result<String, RuleError>  {
-        return .success(value)
+struct FloatMapper: ValueMapper {
+    internal func mapValue(value: String) -> Result<Float, RuleError>  {
+        var result: Result<Float, RuleError>
+        if let floatValue = Float(value) {
+            result = .success(floatValue)
+        } else {
+            result = .failure(RuleError.UnexpectedValue)
+        }
+        return result
+    }
+}
+
+struct IntegerMapper: ValueMapper {
+    internal func mapValue(value: String) -> Result<Int, RuleError>  {
+        var result: Result<Int, RuleError>
+        if let intValue = Int(value) {
+            result = .success(intValue)
+        } else {
+            result = .failure(RuleError.UnexpectedValue)
+        }
+        return result
+    }
+}
+
+struct UriMapper: ValueMapper {
+    internal func mapValue(value: String) -> Result<URL, RuleError>  {
+        var result: Result<URL, RuleError>
+        if let urlValue = URL(string: value) {
+            result = .success(urlValue)
+        } else {
+            result = .failure(RuleError.UnexpectedValue)
+        }
+        return result
+    }
+}
+
+struct CalendarUserAddressMapper: ValueMapper {
+    
+    // https://icalendar.org/iCalendar-RFC-5545/3-3-3-calendar-user-address.html
+    internal func mapValue(value: String) -> Result<URL, RuleError>  {
+        var result: Result<URL, RuleError>
+        if let urlValue = URL(string: value) {
+            result = .success(urlValue)
+        } else {
+            result = .failure(RuleError.UnexpectedValue)
+        }
+        return result
     }
 }

@@ -27,10 +27,10 @@ class RulesTests: XCTestCase, Assertable {
     
     func testExistingRule() {
         let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.identifier("VCALENDAR")]
-        let expectedNodeValue = NodeValue<ComponentValueType>.Component(.Calendar, .Begin)
+        let expectedNode = Node<Component>(name: .begin, value: .calendar, type: .container)
         let result = Rules().invokeRule(tokens: inputTokens)
  
-        assertNodeValue(result: result, expectedNodeValue: expectedNodeValue)
+        assertNode(node: result.unwrap() as! Node<Component>?, expectedNode: expectedNode)
     }
     
     func testFailingBEGINRules() {

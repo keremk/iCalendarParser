@@ -22,10 +22,14 @@ import Foundation
 //    case UTCOffset
 
 
-struct ComponentValueType: Equatable {
-    static func == (lhs: ComponentValueType, rhs: ComponentValueType) -> Bool {
-        return true
-    }
+enum Component: String, RawRepresentable {
+    case calendar = "VCALENDAR"
+    case event = "VEVENT"
+    case toDo = "VTODO"
+    case journal = "VJOURNAL"
+    case freeBusy = "VFREEBUSY"
+    case timeZone = "VTIMEZONE"
+    case alarm = "VALARM"
 }
 
 struct MultiValued<T: Equatable>: Equatable {

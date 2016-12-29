@@ -23,7 +23,21 @@ extension Result {
         case .success(let value): return transform(value)
         case .failure(let error): return .failure(error)
         }
-    }    
+    }
+    
+    func map<T>(_ transform: (Value) -> T) -> T? {
+        switch self {
+        case .success(let value): return transform(value)
+        case .failure(_): return nil
+        }
+    }
+    
+    func unwrap() -> Value? {
+        switch self {
+        case .success(let value): return value
+        case .failure(_): return nil
+        }
+    }
 }
 
 extension Result where Value:Equatable {

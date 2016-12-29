@@ -1,27 +1,24 @@
 //
-//  PropertyRule.swift
+//  DefaultRule.swift
 //  iCalendarParser
 //
-//  Created by Kerem Karatal on 12/10/16.
+//  Created by Kerem Karatal on 12/28/16.
 //  Copyright © 2016 Kerem Karatal. All rights reserved.
 //
 
 import Foundation
 
-enum PropertyName: String, RawRepresentable {
-    case Version = "VERSION"
-    case Description = "DESCRIPTION"
-    case Summary = "SUMMARY"
-    case Attendee = "ATTENDEE"
-    case Categories = "CATEGORIES"
-}
-
-struct PropertyRule<T: Equatable>: Rule {
+struct DefaultRule<T: Equatable>: Rule {
     let valueMapper: AnyValueMapper<T>
+    let nodeType: NodeType
+    let separator: Token
     let isMultiValued: Bool
-
-    init(valueMapper: AnyValueMapper<T>, isMultiValued: Bool = false) {
+    
+    init(valueMapper: AnyValueMapper<T>, nodeType: NodeType,
+         separator: Token = Token.valueSeparator, isMultiValued: Bool = false) {
         self.valueMapper = valueMapper
+        self.nodeType = nodeType
+        self.separator = separator
         self.isMultiValued = isMultiValued
     }
     
@@ -29,7 +26,7 @@ struct PropertyRule<T: Equatable>: Rule {
         guard tokens.count >= 3 else {
             return .failure(RuleError.UnexpectedTokenCount)
         }
-        guard tokens[1] == Token.valueSeparator else {
+        guard tokens[1] == separator else {
             return .failure(RuleError.IncorrectSeparator)
         }
         
@@ -43,12 +40,12 @@ struct PropertyRule<T: Equatable>: Rule {
         case(.success(let name), .success(let multiValued)):
             if !isMultiValued {
                 // Single value
-                let nodeValue = NodeValue.Property(name, multiValued.values[0])
-                let node = Node(nodeValue: nodeValue)
+                let nodeValue = multiValued.values[0]
+                let node = Node(name: name, value: nodeValue, type: nodeType)
                 ruleOutput = .success(node)
             } else {
-                let nodeValue = NodeValue.Property(name, multiValued)
-                let node = Node(nodeValue: nodeValue)
+                let nodeValue = multiValued
+                let node = Node(name: name, value: nodeValue, type: nodeType)
                 ruleOutput = .success(node)
             }
             break
@@ -66,9 +63,9 @@ struct PropertyRule<T: Equatable>: Rule {
         return ruleOutput
     }
     
-    private func extractName(token: Token) -> Result<PropertyName, RuleError> {
+    private func extractName(token: Token) -> Result<ElementName, RuleError> {
         if case .identifier(let stringValue) = token,
-            let name = PropertyName(rawValue: stringValue) {
+            let name = ElementName(rawValue: stringValue) {
             return .success(name)
         } else {
             return .failure(RuleError.UnexpectedName)

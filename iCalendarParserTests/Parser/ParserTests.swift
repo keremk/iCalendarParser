@@ -28,10 +28,11 @@ class ParserTests: XCTestCase {
             Token.identifier("END"), Token.valueSeparator, Token.identifier("VCALENDAR")]
         
         var parser = Parser()
-        let resultNode = parser.parse(tokens: inputTokens) as! Node<ComponentValueType>
+        let resultNode = parser.parse(tokens: inputTokens) as! Node<Component>
        
-        let expectedNodeValue = NodeValue<ComponentValueType>.Component(.Calendar, .Begin)
-        XCTAssert(resultNode.nodeValue == expectedNodeValue)
+        let expectedNodeValue = Component.calendar
+        XCTAssert(resultNode.value == expectedNodeValue)
+        XCTAssert(resultNode.name == ElementName.begin)
 
         XCTAssertNil(resultNode.parent)
 
@@ -39,8 +40,9 @@ class ParserTests: XCTestCase {
         XCTAssert(children.count == 1)
         let propertyNode = children[0] as! Node<String>
 
-        let expectedPropertyValue = NodeValue<String>.Property(.Version, "2.0")
-        XCTAssert(propertyNode.nodeValue == expectedPropertyValue)
+        let expectedPropertyValue = "2.0"
+        XCTAssert(propertyNode.value == expectedPropertyValue)
+        XCTAssert(propertyNode.name == ElementName.version)
     }
     
     func testTwoLevelsDeepComponent() {
@@ -57,7 +59,7 @@ class ParserTests: XCTestCase {
             Token.identifier("END"), Token.valueSeparator, Token.identifier("VCALENDAR")]
         
         var parser = Parser()
-        let resultNode = parser.parse(tokens: inputTokens) as! Node<ComponentValueType>
+        let resultNode = parser.parse(tokens: inputTokens) as! Node<Component>
 
         let children = resultNode.children
         XCTAssert(children.count == 2)
@@ -65,22 +67,21 @@ class ParserTests: XCTestCase {
         // Check Version Value
         let versionNode = children[0] as! Node<String>
         XCTAssertNotNil(versionNode.parent)
-        let expectedVersionNodeValue = NodeValue<String>.Property(.Version, "2.0")
-        XCTAssert(versionNode.nodeValue == expectedVersionNodeValue)
+        XCTAssert(versionNode.value == "2.0")
         
         // Check Event Component
-        let eventNode = children[1] as! Node<ComponentValueType>
+        let eventNode = children[1] as! Node<Component>
         XCTAssertNotNil(eventNode.parent)
-        let expectedEventNodeValue = NodeValue<ComponentValueType>.Component(.Event, .Begin)
-        XCTAssert(eventNode.nodeValue == expectedEventNodeValue)
+        XCTAssert(eventNode.value == .event)
+        XCTAssert(eventNode.name == .begin)
         
         // Check Summary Value
         let eventNodeChildren = eventNode.children
         XCTAssert(eventNodeChildren.count == 1)
         let summaryNode = eventNodeChildren[0] as! Node<String>
         XCTAssertNotNil(summaryNode.parent)
-        let expectedSummaryNodeValue = NodeValue<String>.Property(.Summary, "Networld+Interop Conference")
-        XCTAssert(summaryNode.nodeValue == expectedSummaryNodeValue)
+        XCTAssert(summaryNode.value == "Networld+Interop Conference")
+        XCTAssert(summaryNode.name == .summary)
     }
     
     
@@ -100,27 +101,30 @@ class ParserTests: XCTestCase {
                            Token.identifier("END"), Token.valueSeparator, Token.identifier("VCALENDAR")]
         
         var parser = Parser()
-        let resultNode = parser.parse(tokens: inputTokens) as! Node<ComponentValueType>
+        let resultNode = parser.parse(tokens: inputTokens) as! Node<Component>
         
         let children = resultNode.children
         XCTAssert(children.count == 1)
        
         // Check Attendee Property
-        let eventNode = children[0] as! Node<ComponentValueType>
+        let eventNode = children[0] as! Node<Component>
         let eventNodeChildren = eventNode.children
         XCTAssert(eventNodeChildren.count == 1)
         let attendeeNode = eventNodeChildren[0] as! Node<String>
-        XCTAssert(attendeeNode.nodeValue == NodeValue.Property(PropertyName.Attendee, "mailto:employee-A@example.com"))
+        XCTAssert(attendeeNode.value == "mailto:employee-A@example.com")
+        XCTAssert(attendeeNode.name == .attendee)
         
         // Check RSVP parameter
         let attendeeChildren = attendeeNode.children
         XCTAssert(attendeeChildren.count == 2)
         let rsvpParameter = attendeeChildren[0] as! Node<Bool>
-        XCTAssert(rsvpParameter.nodeValue == NodeValue.Parameter(ParameterName.Rsvp, true))
+        XCTAssert(rsvpParameter.value == true)
+        XCTAssert(rsvpParameter.name == .rsvp)
 
         // Check CUType parameter
         let cuTypeParameter = attendeeChildren[1] as! Node<String>
-        XCTAssert(cuTypeParameter.nodeValue == NodeValue.Parameter(ParameterName.Cutype, "GROUP"))
+        XCTAssert(cuTypeParameter.value == "GROUP")
+        XCTAssert(cuTypeParameter.name == .cutype)
     }
     
 }

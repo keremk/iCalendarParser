@@ -9,65 +9,32 @@
 import Foundation
 
 enum NodeType {
-    case Component
-    case Property
-    case Parameter
+    case container
+    case property
+    case parameter
 }
 
 protocol Parsable: class {
     var parent: Parsable? { get set }
     var children: [Parsable] { get }
-    var nodeType: NodeType { get }
+    var type: NodeType { get }
+    var name: ElementName { get }
+    
     func appendNewNode(_ node: Parsable)
 }
 
-enum NodeValue<T: Equatable> {
-    case Component(ComponentType, ComponentIndicator)
-    case Property(PropertyName, T)
-    case Parameter(ParameterName, T)
-}
-
-extension NodeValue {
-    static func == (lhs: NodeValue<T>, rhs: NodeValue<T>) -> Bool {
-        var isEqual = false
-        switch (lhs, rhs) {
-        case (.Component(let lhsType, let lhsIndicator), .Component(let rhsType, let rhsIndicator)):
-            isEqual = (lhsType == rhsType) && (lhsIndicator == rhsIndicator)
-            break
-        case (.Property(let lhsName, let lhsValue), .Property(let rhsName, let rhsValue)):
-            isEqual = (lhsName == rhsName) && (lhsValue == rhsValue)
-            break
-        case (.Parameter(let lhsName, let lhsValue), .Parameter(let rhsName, let rhsValue)):
-            isEqual = (lhsName == rhsName) && (lhsValue == rhsValue)
-            break
-        case (.Component(_, _), _), (.Property(_, _), _), (.Parameter(_, _), _):
-            isEqual  = false
-            break
-        }
-        return isEqual
-    }
-}
-
 final class Node<T: Equatable> : Parsable {
-    let nodeValue: NodeValue<T>
+    let value: T
+    let name: ElementName
+    let type: NodeType
     
     weak var parent: Parsable?
     var children: [Parsable] = []
-    var nodeType: NodeType {
-        get {
-            switch self.nodeValue {
-            case .Component(_, _):
-                return NodeType.Component
-            case .Parameter(_, _):
-                return NodeType.Parameter
-            case .Property(_, _):
-                return NodeType.Property
-            }
-        }
-    }
     
-    init(nodeValue: NodeValue<T>) {
-        self.nodeValue = nodeValue
+    init(name: ElementName, value: T, type: NodeType) {
+        self.name = name
+        self.value = value
+        self.type = type
     }
     
     func appendNewNode(_ node: Parsable) {
@@ -116,50 +83,45 @@ struct Parser {
     }
 
     private mutating func handleNode(node: Parsable) {
-        switch node.nodeType {
-        case .Component:
-            let componentNode = node as! Node<ComponentValueType>
-            handleComponentNode(node: componentNode)
+        switch node.type {
+        case .container:
+            handleContainerNode(node: node as! Node<Component>)
             break
-        case .Parameter, .Property:
+        case .parameter, .property:
             handleOtherNode(node: node)
             break
         }
     }
     
-    private mutating func handleComponentNode(node: Node<ComponentValueType>) {
-        
-        switch node.nodeValue {
-        case .Component(let componentType, let componentIndicator):
-            switch (componentIndicator, componentType) {
-            case (.Begin, .Calendar):
-                activeParentNode = node
-                rootNode = node
-                break
-            case (.End, .Calendar):
-                // Must end here
-                break
-            case (.Begin, _):
-                activeParentNode?.appendNewNode(node)
-                activeParentNode = node
-                break
-            case (.End, _):
-                activeParentNode = activeParentNode?.parent
-                // Discard End node, it is not represented in the tree
-                break
-            }
+    private mutating func handleContainerNode(node: Node<Component>) {
+        switch (node.name, node.value) {
+        case (.begin, .calendar):
+            activeParentNode = node
+            rootNode = node
+            break
+        case (.end, .calendar):
+            // Must end here
+            break
+        case (.begin, _):
+            activeParentNode?.appendNewNode(node)
+            activeParentNode = node
+            break
+        case (.end, _):
+            activeParentNode = activeParentNode?.parent
+            // Discard End node, it is not represented in the tree
+            break
         default:
             break
         }
     }
     
     private mutating func handleOtherNode(node: Parsable) {
-        switch node.nodeType {
-        case .Property:
+        switch node.type {
+        case .property:
             activeParentNode?.appendNewNode(node)
             activePropertyNode = node
             break
-        case .Parameter:
+        case .parameter:
             activePropertyNode?.appendNewNode(node)
             break
         default:

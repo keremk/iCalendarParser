@@ -8,6 +8,18 @@
 
 import Foundation
 
+struct ComponentMapper: ValueMapper {
+    internal func mapValue(value: String) -> Result<Component, RuleError> {
+        var result: Result<Component, RuleError>
+        if let component = Component(rawValue: value) {
+            result = .success(component)
+        } else {
+            result = .failure(RuleError.UnexpectedValue)
+        }
+        return result
+    }
+}
+
 struct BooleanMapper: ValueMapper {
     internal func mapValue(value: String) -> Result<Bool, RuleError> {
         var result: Result<Bool, RuleError>

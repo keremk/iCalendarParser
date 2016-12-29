@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias RuleHandler<T: Comparable> = ([Token]) -> Node<T>
-
 protocol Rule {
     func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError>
 }
@@ -23,17 +21,7 @@ enum RuleError: Error {
     case UndefinedTokenIdentifier
 }
 
-struct Rules: Rule {
-    let ruleSet:[String:Rule] = [
-        "BEGIN": ComponentRule(),
-        "END": ComponentRule(),
-        PropertyName.Version.rawValue: PropertyRule(valueMapper: AnyValueMapper(TextMapper())),
-        PropertyName.Summary.rawValue: PropertyRule(valueMapper: AnyValueMapper(TextMapper())),
-        PropertyName.Attendee.rawValue: PropertyRule(valueMapper: AnyValueMapper(TextMapper())),
-        ParameterName.Rsvp.rawValue: ParameterRule(valueMapper: AnyValueMapper(BooleanMapper())),
-        ParameterName.Cutype.rawValue: ParameterRule(valueMapper: AnyValueMapper(TextMapper()))
-    ]
-
+struct Rules: Rule {    
     public func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
         guard let firstToken = tokens.first else {
             return .failure(RuleError.UnexpectedTokenCount)
@@ -42,7 +30,8 @@ struct Rules: Rule {
         var ruleOutput: Result<Parsable, RuleError>
         switch firstToken {
         case .identifier(let identifier):
-            if let rule = ruleSet[identifier] {
+            if let elementName = ElementName(rawValue: identifier),
+                let rule = RuleSet.rules[elementName] {
                 ruleOutput = rule.invokeRule(tokens: tokens)
             } else {
                 ruleOutput = .failure(RuleError.UndefinedTokenIdentifier)

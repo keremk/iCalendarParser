@@ -39,7 +39,6 @@ struct DefaultRule<T: Equatable>: Rule {
         switch (nameResult, valuesResult) {
         case(.success(let name), .success(let multiValued)):
             if !isMultiValued {
-                // Single value
                 let nodeValue = multiValued.values[0]
                 let node = Node(name: name, value: nodeValue, type: nodeType)
                 ruleOutput = .success(node)

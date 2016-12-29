@@ -30,7 +30,7 @@ class DefaultRuleTests: XCTestCase, Assertable {
     }
     
     func parameterRule() -> DefaultRule<Bool> {
-        return DefaultRule(valueMapper: AnyValueMapper(BooleanMapper()), nodeType: .parameter, separator: Token.parameterValueSeparator)
+        return DefaultRule(valueMapper: AnyValueMapper(BooleanMapper()), nodeType: .parameter)
     }
     
     // MARK: Component Rules

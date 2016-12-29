@@ -22,5 +22,6 @@ enum ElementName: String, RawRepresentable {
     case altRep = "ALTREP"
     case rsvp = "RSVP"
     case cutype = "CUTYPE"
+    case cn = "CN"
 }
 

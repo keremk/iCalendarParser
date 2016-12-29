@@ -11,14 +11,25 @@ import Foundation
 struct DefaultRule<T: Equatable>: Rule {
     let valueMapper: AnyValueMapper<T>
     let nodeType: NodeType
-    let separator: Token
     let isMultiValued: Bool
     
+    var separator:Token {
+        get {
+            switch nodeType {
+            case .container:
+                return Token.valueSeparator
+            case .parameter:
+                return Token.parameterValueSeparator
+            case .property:
+                return Token.valueSeparator
+            }
+        }
+    }
+    
     init(valueMapper: AnyValueMapper<T>, nodeType: NodeType,
-         separator: Token = Token.valueSeparator, isMultiValued: Bool = false) {
+         isMultiValued: Bool = false) {
         self.valueMapper = valueMapper
         self.nodeType = nodeType
-        self.separator = separator
         self.isMultiValued = isMultiValued
     }
     

@@ -17,8 +17,9 @@ struct RuleSet {
         .attendee: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .property),
         .description: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .property),
         .categories: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .property, isMultiValued: true),
-        .altRep: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .parameter, separator: Token.parameterValueSeparator),
-        .rsvp: DefaultRule(valueMapper: AnyValueMapper(BooleanMapper()), nodeType: .parameter, separator: Token.parameterValueSeparator),
-        .cutype: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .parameter, separator: Token.parameterValueSeparator)
+        .altRep: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .parameter),
+        .rsvp: DefaultRule(valueMapper: AnyValueMapper(BooleanMapper()), nodeType: .parameter),
+        .cutype: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .parameter),
+        .cn: DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .parameter)
     ]
 }

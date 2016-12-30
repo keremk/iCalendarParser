@@ -12,6 +12,7 @@ struct DefaultRule<T: Equatable>: Rule {
     let valueMapper: AnyValueMapper<T>
     let nodeType: NodeType
     let isMultiValued: Bool
+    let multiValueSeparator: Token
     
     var separator:Token {
         get {
@@ -27,10 +28,11 @@ struct DefaultRule<T: Equatable>: Rule {
     }
     
     init(valueMapper: AnyValueMapper<T>, nodeType: NodeType,
-         isMultiValued: Bool = false) {
+         isMultiValued: Bool = false, multiValueSeparator: Token = Token.multiValueSeparator) {
         self.valueMapper = valueMapper
         self.nodeType = nodeType
         self.isMultiValued = isMultiValued
+        self.multiValueSeparator = multiValueSeparator
     }
     
     internal func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
@@ -106,6 +108,6 @@ struct DefaultRule<T: Equatable>: Rule {
     
     private func extractValues(tokens: [Token]) -> Result<MultiValued<T>, RuleError> {
         let initial = Result<MultiValued<T>, RuleError>.success(MultiValued<T>(values:[]))
-        return tokens.filter({$0 != Token.multiValueSeparator }).map(extractValue).reduce(initial, appendToMultiValued)
+        return tokens.filter({$0 != multiValueSeparator }).map(extractValue).reduce(initial, appendToMultiValued)
     }
 }

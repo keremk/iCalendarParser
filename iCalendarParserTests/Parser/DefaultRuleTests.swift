@@ -55,6 +55,29 @@ class DefaultRuleTests: XCTestCase, Assertable {
         let result = DefaultRule(valueMapper: AnyValueMapper(TextMapper()), nodeType: .property, isMultiValued: true).invokeRule(tokens: inputTokens)
         assertNode(node: result.unwrap() as! Node<MultiValued<String>>?, expectedNode: expectedNode)
     }
+    
+    func testMultiValuedPeriodOfTimeProperty() {
+        let inputTokens = [Token.identifier("FREEBUSY"), Token.valueSeparator, Token.identifier("19970308T160000Z/PT3H"), Token.multiValueSeparator, Token.identifier("19970308T230000Z/19970309T000000Z")]
+        
+        let startDate1 = dateFrom(year: 1997, month: 3, day: 8, hour: 16, minute: 0, second: 0, timeZone: TimeZone(secondsFromGMT: 0)!)
+        let duration1 = Duration(isNegative: false, days: nil, weeks: nil, hours: 3, minutes: nil, seconds: nil)
+        let periodOfTime1 = PeriodOfTime(start: startDate1, period: PeriodIndicator.duration(duration1))
+        
+        let startDate2 = dateFrom(year: 1997, month: 3, day: 8, hour: 23, minute: 0, second: 0, timeZone: TimeZone(secondsFromGMT: 0)!)
+        let endDate2 = dateFrom(year: 1997, month: 3, day: 9, hour: 0, minute: 0, second: 0, timeZone: TimeZone(secondsFromGMT: 0)!)
+        let periodOfTime2 = PeriodOfTime(start: startDate2, period: PeriodIndicator.endDate(endDate2))
+
+        let expectedNode = Node<MultiValued<PeriodOfTime>>(name: .freeBusy, value: MultiValued(values: [periodOfTime1, periodOfTime2]), type: .property)
+        let result = DefaultRule(valueMapper: AnyValueMapper(PeriodofTimeMapper()), nodeType: .property, isMultiValued: true).invokeRule(tokens: inputTokens)
+        assertNode(node: result.unwrap() as! Node<MultiValued<PeriodOfTime>>?, expectedNode: expectedNode)
+    }
+    
+    func testValueSeparatedBySemiColon() {
+        let inputTokens = [Token.identifier("GEO"), Token.valueSeparator, Token.identifier("37.386013"), Token.parameterSeparator, Token.identifier("-122.082932")]
+        let expectedNode = Node<MultiValued<Float>>(name: .geo, value: MultiValued(values: [37.386013, -122.082932]), type: .property)
+        let result = DefaultRule(valueMapper: AnyValueMapper(FloatMapper()), nodeType: .property, isMultiValued: true, multiValueSeparator: Token.parameterSeparator).invokeRule(tokens: inputTokens)
+        assertNode(node: result.unwrap() as! Node<MultiValued<Float>>?, expectedNode: expectedNode)
+    }
 
     // MARK: Parameter Rules
     func testSimpleNameValueParameter() {

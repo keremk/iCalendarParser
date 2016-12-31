@@ -15,7 +15,6 @@
 		772298641E0D307000707204 /* DateMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298631E0D307000707204 /* DateMappers.swift */; };
 		772298651E0D307000707204 /* DateMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298631E0D307000707204 /* DateMappers.swift */; };
 		772298671E0D308A00707204 /* DateMappersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298661E0D308A00707204 /* DateMappersTests.swift */; };
-		772298691E0D319900707204 /* AssertionHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298681E0D319900707204 /* AssertionHelpers.swift */; };
 		7722986B1E0D3E7500707204 /* ValueMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7722986A1E0D3E7500707204 /* ValueMapper.swift */; };
 		7722986C1E0D3E7500707204 /* ValueMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7722986A1E0D3E7500707204 /* ValueMapper.swift */; };
 		7722986E1E0D3ED600707204 /* ValueMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7722986D1E0D3ED600707204 /* ValueMapperTests.swift */; };
@@ -51,6 +50,7 @@
 		778228FE1E112CAE00B5C99C /* PeriodOfTimeMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228FD1E112CAE00B5C99C /* PeriodOfTimeMapperTests.swift */; };
 		778229001E12703D00B5C99C /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228FF1E12703D00B5C99C /* DateUtils.swift */; };
 		778229011E12703D00B5C99C /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778228FF1E12703D00B5C99C /* DateUtils.swift */; };
+		779EC7811E17E860005B58F1 /* AssertionHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779EC7801E17E860005B58F1 /* AssertionHelpers.swift */; };
 		77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 		77A779001DE1C90B00CB9950 /* ScanningIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */; };
 		77C02CFF1E144D1900258B93 /* ElementName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C02CFE1E144D1800258B93 /* ElementName.swift */; };
@@ -79,7 +79,6 @@
 		77174F9C1E0D772600B8FF56 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Common/Result.swift; sourceTree = "<group>"; };
 		772298631E0D307000707204 /* DateMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateMappers.swift; path = ValueMappers/DateMappers.swift; sourceTree = "<group>"; };
 		772298661E0D308A00707204 /* DateMappersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateMappersTests.swift; path = ValueMappers/DateMappersTests.swift; sourceTree = "<group>"; };
-		772298681E0D319900707204 /* AssertionHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssertionHelpers.swift; path = Parser/AssertionHelpers.swift; sourceTree = "<group>"; };
 		7722986A1E0D3E7500707204 /* ValueMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueMapper.swift; path = ValueMappers/ValueMapper.swift; sourceTree = "<group>"; };
 		7722986D1E0D3ED600707204 /* ValueMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueMapperTests.swift; path = ValueMappers/ValueMapperTests.swift; sourceTree = "<group>"; };
 		7722986F1E0D3F3D00707204 /* BasicMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicMappers.swift; path = ValueMappers/BasicMappers.swift; sourceTree = "<group>"; };
@@ -106,6 +105,7 @@
 		778228FA1E112C9300B5C99C /* PeriodOfTimeMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeriodOfTimeMapper.swift; path = ValueMappers/PeriodOfTimeMapper.swift; sourceTree = "<group>"; };
 		778228FD1E112CAE00B5C99C /* PeriodOfTimeMapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeriodOfTimeMapperTests.swift; path = ValueMappers/PeriodOfTimeMapperTests.swift; sourceTree = "<group>"; };
 		778228FF1E12703D00B5C99C /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtils.swift; path = Common/DateUtils.swift; sourceTree = "<group>"; };
+		779EC7801E17E860005B58F1 /* AssertionHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssertionHelpers.swift; path = Common/AssertionHelpers.swift; sourceTree = "<group>"; };
 		77A778FE1DE1C90B00CB9950 /* ScanningIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIterator.swift; sourceTree = "<group>"; };
 		77C02CFE1E144D1800258B93 /* ElementName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementName.swift; sourceTree = "<group>"; };
 		77C02D011E14745200258B93 /* DefaultRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRule.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 			children = (
 				77174F9B1E0D76F200B8FF56 /* Common */,
 				776F53371DFD76090011B55D /* Lexer */,
-				776F53361DFD75FE0011B55D /* Parser */,
+				776F53361DFD75FE0011B55D /* ASTGenerator */,
 				77C827B71E11284000B2B63F /* ValueMappers */,
 				7755581F1DD7520900BA9027 /* iCalendarParser.h */,
 				775558201DD7520900BA9027 /* Info.plist */,
@@ -178,14 +178,14 @@
 			children = (
 				77C827B81E11286A00B2B63F /* Common */,
 				776F53391DFD7A6A0011B55D /* Lexer */,
-				776F53381DFD7A620011B55D /* Parser */,
+				776F53381DFD7A620011B55D /* ASTGenerator */,
 				77C827B91E11288900B2B63F /* ValueMappers */,
 				7755582C1DD7520900BA9027 /* Info.plist */,
 			);
 			path = iCalendarParserTests;
 			sourceTree = "<group>";
 		};
-		776F53361DFD75FE0011B55D /* Parser */ = {
+		776F53361DFD75FE0011B55D /* ASTGenerator */ = {
 			isa = PBXGroup;
 			children = (
 				77C02CFE1E144D1800258B93 /* ElementName.swift */,
@@ -194,7 +194,7 @@
 				773880E91DF4163D00746CC8 /* Rules.swift */,
 				77C02D011E14745200258B93 /* DefaultRule.swift */,
 			);
-			path = Parser;
+			path = ASTGenerator;
 			sourceTree = "<group>";
 		};
 		776F53371DFD76090011B55D /* Lexer */ = {
@@ -207,14 +207,14 @@
 			path = Lexer;
 			sourceTree = "<group>";
 		};
-		776F53381DFD7A620011B55D /* Parser */ = {
+		776F53381DFD7A620011B55D /* ASTGenerator */ = {
 			isa = PBXGroup;
 			children = (
 				773880E71DF415F900746CC8 /* ASTGeneratorTests.swift */,
 				773880EC1DF445DA00746CC8 /* RulesTests.swift */,
 				77C02D071E1529FE00258B93 /* DefaultRuleTests.swift */,
 			);
-			path = Parser;
+			path = ASTGenerator;
 			sourceTree = "<group>";
 		};
 		776F53391DFD7A6A0011B55D /* Lexer */ = {
@@ -243,7 +243,7 @@
 		77C827B81E11286A00B2B63F /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				772298681E0D319900707204 /* AssertionHelpers.swift */,
+				779EC7801E17E860005B58F1 /* AssertionHelpers.swift */,
 				7702F88B1E07504300A65939 /* StringUtilsTests.swift */,
 				7702F8841E0560D700A65939 /* TokenTests.swift */,
 				778228FF1E12703D00B5C99C /* DateUtils.swift */,
@@ -406,9 +406,9 @@
 				773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */,
 				77C02D001E144D1900258B93 /* ElementName.swift in Sources */,
 				772298671E0D308A00707204 /* DateMappersTests.swift in Sources */,
+				779EC7811E17E860005B58F1 /* AssertionHelpers.swift in Sources */,
 				772298761E0D527300707204 /* DurationMapper.swift in Sources */,
 				778228FE1E112CAE00B5C99C /* PeriodOfTimeMapperTests.swift in Sources */,
-				772298691E0D319900707204 /* AssertionHelpers.swift in Sources */,
 				7722987D1E0D54DB00707204 /* DurationLexerTests.swift in Sources */,
 				773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */,
 				7702F88A1E07035A00A65939 /* ValueTypesTests.swift in Sources */,

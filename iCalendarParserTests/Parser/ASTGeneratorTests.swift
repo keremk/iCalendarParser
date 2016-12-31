@@ -1,5 +1,5 @@
 //
-//  ParserTests.swift
+//  ASTGeneratorTests.swift
 //  iCalendarParser
 //
 //  Created by Kerem Karatal on 12/4/16.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class ParserTests: XCTestCase {
+class ASTGeneratorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -27,8 +27,8 @@ class ParserTests: XCTestCase {
         let inputTokens = [Token.identifier("BEGIN"), Token.valueSeparator, Token.identifier("VCALENDAR"), Token.contentLine,   Token.identifier("VERSION"), Token.valueSeparator, Token.identifier("2.0"), Token.contentLine,
             Token.identifier("END"), Token.valueSeparator, Token.identifier("VCALENDAR")]
         
-        var parser = Parser()
-        let resultNode = parser.parse(tokens: inputTokens) as! Node<Component>
+        var generator = ASTGenerator()
+        let resultNode = generator.generate(tokens: inputTokens) as! Node<Component>
        
         let expectedNodeValue = Component.calendar
         XCTAssert(resultNode.value == expectedNodeValue)
@@ -58,8 +58,8 @@ class ParserTests: XCTestCase {
             Token.identifier("END"), Token.valueSeparator, Token.identifier("VEVENT"), Token.contentLine,
             Token.identifier("END"), Token.valueSeparator, Token.identifier("VCALENDAR")]
         
-        var parser = Parser()
-        let resultNode = parser.parse(tokens: inputTokens) as! Node<Component>
+        var generator = ASTGenerator()
+        let resultNode = generator.generate(tokens: inputTokens) as! Node<Component>
 
         let children = resultNode.children
         XCTAssert(children.count == 2)
@@ -100,8 +100,8 @@ class ParserTests: XCTestCase {
                            Token.identifier("END"), Token.valueSeparator, Token.identifier("VEVENT"), Token.contentLine,
                            Token.identifier("END"), Token.valueSeparator, Token.identifier("VCALENDAR")]
         
-        var parser = Parser()
-        let resultNode = parser.parse(tokens: inputTokens) as! Node<Component>
+        var generator = ASTGenerator()
+        let resultNode = generator.generate(tokens: inputTokens) as! Node<Component>
         
         let children = resultNode.children
         XCTAssert(children.count == 1)

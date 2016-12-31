@@ -29,9 +29,9 @@
 		7722987B1E0D54C500707204 /* DurationLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772298791E0D54C500707204 /* DurationLexer.swift */; };
 		7722987D1E0D54DB00707204 /* DurationLexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7722987C1E0D54DB00707204 /* DurationLexerTests.swift */; };
 		773880E31DEB0FFB00746CC8 /* ScanningIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */; };
-		773880E51DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
-		773880E61DF415CA00746CC8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* Parser.swift */; };
-		773880E81DF415F900746CC8 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E71DF415F900746CC8 /* ParserTests.swift */; };
+		773880E51DF415CA00746CC8 /* ASTGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* ASTGenerator.swift */; };
+		773880E61DF415CA00746CC8 /* ASTGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E41DF415CA00746CC8 /* ASTGenerator.swift */; };
+		773880E81DF415F900746CC8 /* ASTGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E71DF415F900746CC8 /* ASTGeneratorTests.swift */; };
 		773880EA1DF4163D00746CC8 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E91DF4163D00746CC8 /* Rules.swift */; };
 		773880EB1DF4163D00746CC8 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880E91DF4163D00746CC8 /* Rules.swift */; };
 		773880ED1DF445DA00746CC8 /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773880EC1DF445DA00746CC8 /* RulesTests.swift */; };
@@ -89,8 +89,8 @@
 		772298791E0D54C500707204 /* DurationLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationLexer.swift; sourceTree = "<group>"; };
 		7722987C1E0D54DB00707204 /* DurationLexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationLexerTests.swift; sourceTree = "<group>"; };
 		773880E21DEB0FFB00746CC8 /* ScanningIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanningIteratorTests.swift; sourceTree = "<group>"; };
-		773880E41DF415CA00746CC8 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		773880E71DF415F900746CC8 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		773880E41DF415CA00746CC8 /* ASTGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASTGenerator.swift; sourceTree = "<group>"; };
+		773880E71DF415F900746CC8 /* ASTGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASTGeneratorTests.swift; sourceTree = "<group>"; };
 		773880E91DF4163D00746CC8 /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		773880EC1DF445DA00746CC8 /* RulesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesTests.swift; sourceTree = "<group>"; };
 		7755581C1DD7520900BA9027 /* iCalendarParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCalendarParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,7 +190,7 @@
 			children = (
 				77C02CFE1E144D1800258B93 /* ElementName.swift */,
 				77C02D041E1478ED00258B93 /* RuleSet.swift */,
-				773880E41DF415CA00746CC8 /* Parser.swift */,
+				773880E41DF415CA00746CC8 /* ASTGenerator.swift */,
 				773880E91DF4163D00746CC8 /* Rules.swift */,
 				77C02D011E14745200258B93 /* DefaultRule.swift */,
 			);
@@ -210,7 +210,7 @@
 		776F53381DFD7A620011B55D /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				773880E71DF415F900746CC8 /* ParserTests.swift */,
+				773880E71DF415F900746CC8 /* ASTGeneratorTests.swift */,
 				773880EC1DF445DA00746CC8 /* RulesTests.swift */,
 				77C02D071E1529FE00258B93 /* DefaultRuleTests.swift */,
 			);
@@ -387,7 +387,7 @@
 				77174F9D1E0D772600B8FF56 /* Result.swift in Sources */,
 				77A778FF1DE1C90B00CB9950 /* ScanningIterator.swift in Sources */,
 				778228F81E112B8400B5C99C /* Token.swift in Sources */,
-				773880E51DF415CA00746CC8 /* Parser.swift in Sources */,
+				773880E51DF415CA00746CC8 /* ASTGenerator.swift in Sources */,
 				778228F51E112B7A00B5C99C /* StringUtils.swift in Sources */,
 				7722987A1E0D54C500707204 /* DurationLexer.swift in Sources */,
 				77C02D021E14745200258B93 /* DefaultRule.swift in Sources */,
@@ -421,8 +421,8 @@
 				772298651E0D307000707204 /* DateMappers.swift in Sources */,
 				7722986E1E0D3ED600707204 /* ValueMapperTests.swift in Sources */,
 				778228F91E112B8400B5C99C /* Token.swift in Sources */,
-				773880E81DF415F900746CC8 /* ParserTests.swift in Sources */,
-				773880E61DF415CA00746CC8 /* Parser.swift in Sources */,
+				773880E81DF415F900746CC8 /* ASTGeneratorTests.swift in Sources */,
+				773880E61DF415CA00746CC8 /* ASTGenerator.swift in Sources */,
 				778228F61E112B7A00B5C99C /* StringUtils.swift in Sources */,
 				772298731E0D3F7500707204 /* BasicMappersTests.swift in Sources */,
 				772298781E0D52A800707204 /* DurationMapperTests.swift in Sources */,

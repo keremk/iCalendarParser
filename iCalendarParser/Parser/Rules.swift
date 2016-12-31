@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Rule {
-    func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError>
+    func invokeRule(tokens: [Token]) -> Result<TreeNode, RuleError>
 }
 
 enum RuleError: Error {
@@ -22,12 +22,12 @@ enum RuleError: Error {
 }
 
 struct Rules: Rule {    
-    public func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
+    public func invokeRule(tokens: [Token]) -> Result<TreeNode, RuleError> {
         guard let firstToken = tokens.first else {
             return .failure(RuleError.UnexpectedTokenCount)
         }
         
-        var ruleOutput: Result<Parsable, RuleError>
+        var ruleOutput: Result<TreeNode, RuleError>
         switch firstToken {
         case .identifier(let identifier):
             if let elementName = ElementName(rawValue: identifier),

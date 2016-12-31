@@ -35,7 +35,7 @@ struct DefaultRule<T: Equatable>: Rule {
         self.multiValueSeparator = multiValueSeparator
     }
     
-    internal func invokeRule(tokens: [Token]) -> Result<Parsable, RuleError> {
+    internal func invokeRule(tokens: [Token]) -> Result<TreeNode, RuleError> {
         guard tokens.count >= 3 else {
             return .failure(RuleError.UnexpectedTokenCount)
         }
@@ -48,7 +48,7 @@ struct DefaultRule<T: Equatable>: Rule {
         valueTokens.removeFirst(2)
         let valuesResult = extractValues(tokens: valueTokens)
         
-        var ruleOutput:Result<Parsable, RuleError>
+        var ruleOutput:Result<TreeNode, RuleError>
         switch (nameResult, valuesResult) {
         case(.success(let name), .success(let multiValued)):
             if !isMultiValued {

@@ -14,22 +14,22 @@ enum NodeType {
     case parameter
 }
 
-protocol Parsable: class {
-    var parent: Parsable? { get set }
-    var children: [Parsable] { get }
+protocol TreeNode: class {
+    var parent: TreeNode? { get set }
+    var children: [TreeNode] { get }
     var type: NodeType { get }
     var name: ElementName { get }
     
-    func appendNewNode(_ node: Parsable)
+    func appendNewNode(_ node: TreeNode)
 }
 
-final class Node<T: Equatable> : Parsable {
+final class Node<T: Equatable> : TreeNode {
     let value: T
     let name: ElementName
     let type: NodeType
     
-    weak var parent: Parsable?
-    var children: [Parsable] = []
+    weak var parent: TreeNode?
+    var children: [TreeNode] = []
     
     init(name: ElementName, value: T, type: NodeType) {
         self.name = name
@@ -37,7 +37,7 @@ final class Node<T: Equatable> : Parsable {
         self.type = type
     }
     
-    func appendNewNode(_ node: Parsable) {
+    func appendNewNode(_ node: TreeNode) {
         children.append(node)
         node.parent = self
     }
@@ -48,19 +48,19 @@ struct ParserError {
     let tokens: [Token]
 }
 
-struct Parser {
+struct ASTGenerator {
     var errors: [ParserError] = []
-    var rootNode: Parsable?
-    var activeParentNode: Parsable?
-    var activePropertyNode: Parsable?
+    var rootNode: TreeNode?
+    var activeParentNode: TreeNode?
+    var activePropertyNode: TreeNode?
     
-    public mutating func parse(tokens: [Token]) -> Parsable? {
+    internal mutating func generate(tokens: [Token]) -> TreeNode? {
         var tokensPerLine:[Token] = []
         
         for token in tokens {
             if token == Token.contentLine {
                 for tokensInGroup in tokensPerLine.groupTokens() {
-                    parseNode(tokens: tokensInGroup)
+                    generateNode(tokens: tokensInGroup)
                 }
                 tokensPerLine = []
             } else {
@@ -70,7 +70,7 @@ struct Parser {
         return rootNode
     }
     
-    private mutating func parseNode(tokens: [Token]) {
+    private mutating func generateNode(tokens: [Token]) {
         let ruleOutput =  Rules().invokeRule(tokens: tokens)
         switch ruleOutput {
         case .success(let node):
@@ -82,7 +82,7 @@ struct Parser {
         }
     }
 
-    private mutating func handleNode(node: Parsable) {
+    private mutating func handleNode(node: TreeNode) {
         switch node.type {
         case .container:
             handleContainerNode(node: node as! Node<Component>)
@@ -115,7 +115,7 @@ struct Parser {
         }
     }
     
-    private mutating func handleOtherNode(node: Parsable) {
+    private mutating func handleOtherNode(node: TreeNode) {
         switch node.type {
         case .property:
             activeParentNode?.appendNewNode(node)

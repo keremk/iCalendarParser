@@ -36,7 +36,7 @@ class ASTGeneratorTests: XCTestCase {
 
         XCTAssertNil(resultNode.parent)
 
-        let children = resultNode.children
+        let children = resultNode.childNodes()
         XCTAssert(children.count == 1)
         let propertyNode = children[0] as! Node<String>
 
@@ -61,7 +61,7 @@ class ASTGeneratorTests: XCTestCase {
         var generator = ASTGenerator()
         let resultNode = generator.generate(tokens: inputTokens) as! Node<Component>
 
-        let children = resultNode.children
+        let children = resultNode.childNodes()
         XCTAssert(children.count == 2)
         
         // Check Version Value
@@ -76,7 +76,7 @@ class ASTGeneratorTests: XCTestCase {
         XCTAssert(eventNode.name == .begin)
         
         // Check Summary Value
-        let eventNodeChildren = eventNode.children
+        let eventNodeChildren = eventNode.childNodes()
         XCTAssert(eventNodeChildren.count == 1)
         let summaryNode = eventNodeChildren[0] as! Node<String>
         XCTAssertNotNil(summaryNode.parent)
@@ -103,19 +103,19 @@ class ASTGeneratorTests: XCTestCase {
         var generator = ASTGenerator()
         let resultNode = generator.generate(tokens: inputTokens) as! Node<Component>
         
-        let children = resultNode.children
+        let children = resultNode.childNodes()
         XCTAssert(children.count == 1)
        
         // Check Attendee Property
         let eventNode = children[0] as! Node<Component>
-        let eventNodeChildren = eventNode.children
+        let eventNodeChildren = eventNode.childNodes()
         XCTAssert(eventNodeChildren.count == 1)
         let attendeeNode = eventNodeChildren[0] as! Node<String>
         XCTAssert(attendeeNode.value == "mailto:employee-A@example.com")
         XCTAssert(attendeeNode.name == .attendee)
         
         // Check RSVP parameter
-        let attendeeChildren = attendeeNode.children
+        let attendeeChildren = attendeeNode.childNodes()
         XCTAssert(attendeeChildren.count == 2)
         let rsvpParameter = attendeeChildren[0] as! Node<Bool>
         XCTAssert(rsvpParameter.value == true)

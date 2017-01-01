@@ -8,41 +8,6 @@
 
 import Foundation
 
-enum NodeType {
-    case container
-    case property
-    case parameter
-}
-
-protocol TreeNode: class {
-    var parent: TreeNode? { get set }
-    var children: [TreeNode] { get }
-    var type: NodeType { get }
-    var name: ElementName { get }
-    
-    func appendNewNode(_ node: TreeNode)
-}
-
-final class Node<T: Equatable> : TreeNode {
-    let value: T
-    let name: ElementName
-    let type: NodeType
-    
-    weak var parent: TreeNode?
-    var children: [TreeNode] = []
-    
-    init(name: ElementName, value: T, type: NodeType) {
-        self.name = name
-        self.value = value
-        self.type = type
-    }
-    
-    func appendNewNode(_ node: TreeNode) {
-        children.append(node)
-        node.parent = self
-    }
-}
-
 struct ParserError {
     let error: RuleError
     let tokens: [Token]

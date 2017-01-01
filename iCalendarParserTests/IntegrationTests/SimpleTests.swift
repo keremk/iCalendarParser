@@ -20,10 +20,10 @@ class SimpleTests: XCTestCase {
         super.tearDown()
     }
     
-    func testSimpleiCalFile() {
+    func testGenerateAST() {
         let input = readFile(filename: "simple")!
-        
-        let node = Parser().parse(input: input) as! Node<Component>
+        let parser = Parser()
+        let node = parser.generateAST(input: input) as! Node<Component>
         XCTAssert(node.name == .begin)
         XCTAssert(node.value == .calendar)
         
@@ -31,5 +31,20 @@ class SimpleTests: XCTestCase {
         XCTAssert(events.count == 1)
         let event = events[0] as! Node<Component>
         XCTAssert(event.value == .event)
+    }
+    
+    func testGenerateCalendar() {
+        let input = readFile(filename: "simple")!
+        let parser = Parser()
+        if let calendar = parser.parse(input: input) {
+            XCTAssert(calendar.version == "2.0")
+            XCTAssert(calendar.events.count == 1)
+            
+            let events = calendar.events
+            XCTAssert(events[0].summary?.value == "Networld+Interop Conference")
+            XCTAssert(events[0].description?.value == "Networld+Interop Conferenceand Exhibit\\nAtlanta World Congress Center\\nAtlanta\\, Georgia")
+        } else {
+            XCTFail("No calendar parsed")
+        }
     }
 }

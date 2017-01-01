@@ -8,8 +8,16 @@
 
 import Foundation
 
-struct Parser {
-    public func parse(input: Data) -> TreeNode? {
+public struct Parser {
+    public func parse(input: Data) -> CalendarDescription? {
+        guard let node = generateAST(input: input) as? Node<Component> else {
+            return nil
+        }
+        var generator = CalendarGenerator()
+        return generator.generate(rootNode: node)
+    }
+    
+    public func generateAST(input: Data) -> TreeNode? {
         guard let inputString = String(data: input, encoding: String.Encoding.utf8) else {
             return nil
         }

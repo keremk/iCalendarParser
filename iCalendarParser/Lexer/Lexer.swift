@@ -49,6 +49,7 @@ struct Lexer {
         static let colon:UTF8.CodeUnit = 58
         static let semiColon:UTF8.CodeUnit = 59
         static let equal:UTF8.CodeUnit = 61
+        static let backslash:UTF8.CodeUnit = 92
     }
         
     private mutating func handleSpecialChars(scanned: ScannedUTF8) {
@@ -70,7 +71,7 @@ struct Lexer {
             handleSeparator(codeUnit: current, tokenType: Token.parameterValueSeparator)
             break
         case SpecialCharSet.comma:
-            handleSeparator(codeUnit: current, tokenType: Token.multiValueSeparator)
+            handleComma(scanned: scanned)
             break
         case SpecialCharSet.cr:
             break
@@ -100,6 +101,22 @@ struct Lexer {
             identifier += String(UnicodeScalar(codeUnit))
         } else {
             handleSeparator(codeUnit: codeUnit, tokenType: Token.valueSeparator)
+        }
+    }
+    
+    private mutating func handleComma(scanned: ScannedUTF8) {
+        guard let current = scanned.current,
+            let preceding = scanned.preceding else {
+                return
+        }
+        
+        switch preceding {
+        case SpecialCharSet.backslash:
+            identifier += String(UnicodeScalar(current))
+            break
+        default:
+            handleSeparator(codeUnit: current, tokenType: Token.multiValueSeparator)
+            break
         }
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ElementName: String, RawRepresentable {
+public enum ElementName: String, RawRepresentable {
     // MARK: Components
     case begin = "BEGIN"
     case end = "END"

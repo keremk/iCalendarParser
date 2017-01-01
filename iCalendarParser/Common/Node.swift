@@ -8,13 +8,13 @@
 
 import Foundation
 
-enum NodeType {
+public enum NodeType {
     case container
     case property
     case parameter
 }
 
-protocol TreeNode: class {
+public protocol TreeNode: class {
     var parent: TreeNode? { get set }
     var type: NodeType { get }
     var name: ElementName { get }
@@ -22,12 +22,12 @@ protocol TreeNode: class {
     func appendNewNode(_ node: TreeNode)
 }
 
-final class Node<T: Equatable> : TreeNode {
+public final class Node<T: Equatable> : TreeNode {
     let value: T
-    let name: ElementName
-    let type: NodeType
+    public let name: ElementName
+    public let type: NodeType
     
-    weak var parent: TreeNode?
+    public weak var parent: TreeNode?
     private var children: [TreeNode] = []
     
     init(name: ElementName, value: T, type: NodeType) {
@@ -41,8 +41,8 @@ final class Node<T: Equatable> : TreeNode {
         node.parent = self
     }
     
-    public func childNode(name: ElementName) -> Node<T>? {
-        return children.filter({ $0.name == name }).first as! Node<T>?
+    public func childNode(name: ElementName) -> TreeNode? {
+        return children.filter({ $0.name == name }).first
     }
     
     public func childNodes(type: NodeType) -> [TreeNode] {

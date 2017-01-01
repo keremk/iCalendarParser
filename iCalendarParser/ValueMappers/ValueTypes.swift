@@ -22,7 +22,7 @@ import Foundation
 //    case UTCOffset
 
 
-enum Component: String, RawRepresentable {
+public enum Component: String, RawRepresentable {
     case calendar = "VCALENDAR"
     case event = "VEVENT"
     case toDo = "VTODO"
@@ -32,15 +32,15 @@ enum Component: String, RawRepresentable {
     case alarm = "VALARM"
 }
 
-struct MultiValued<T: Equatable>: Equatable {
+public struct MultiValued<T: Equatable>: Equatable {
     // Why are we wrapping an array with this struct?
     // 1. The NodeValue used in each Node needs to conform to Equatable
     // 2. Currently in Swift, Array<T: Equatable> does not itself conform to Equatable
     // and the language does not allow to extend it to conform to equatable. 
     // See here for discussion https://forums.developer.apple.com/thread/7172
     
-    let values:[T]
-    static func == (lhs: MultiValued, rhs: MultiValued) -> Bool {
+    public let values:[T]
+    public static func == (lhs: MultiValued, rhs: MultiValued) -> Bool {
         guard lhs.values.count == rhs.values.count else {
             return false
         }
@@ -53,7 +53,7 @@ struct MultiValued<T: Equatable>: Equatable {
     }
 }
 
-struct Duration: Equatable {
+public struct Duration: Equatable {
     var isNegative:Bool // Used for alarms
     var dateComponents: DateComponents = DateComponents()
     var days: Int? {
@@ -111,9 +111,9 @@ struct Duration: Equatable {
     }
 }
 
-extension Duration {
+public extension Duration {
     // Does not try to equate 24 hours to days etc. Semantically 2 duration values that correspond to the same duration will not be equal unless they are literally equal.
-    static func == (lhs: Duration, rhs: Duration) -> Bool {
+    public static func == (lhs: Duration, rhs: Duration) -> Bool {
         if  lhs.isNegative != rhs.isNegative ||
             lhs.dateComponents != rhs.dateComponents {
             return false
@@ -123,13 +123,13 @@ extension Duration {
     }
 }
 
-enum PeriodIndicator {
+public enum PeriodIndicator {
     case endDate(Date)
     case duration(Duration)
 }
 
-extension PeriodIndicator {
-    static func == (lhs: PeriodIndicator, rhs: PeriodIndicator) -> Bool {
+public extension PeriodIndicator {
+    public static func == (lhs: PeriodIndicator, rhs: PeriodIndicator) -> Bool {
         switch (lhs, rhs) {
         case (.endDate(let lhsEndDate), .endDate(let rhsEndDate)):
             return lhsEndDate == rhsEndDate
@@ -140,12 +140,12 @@ extension PeriodIndicator {
         }
     }
     
-    static func != (lhs: PeriodIndicator, rhs: PeriodIndicator) -> Bool {
+    public static func != (lhs: PeriodIndicator, rhs: PeriodIndicator) -> Bool {
         return !(lhs == rhs)
     }
 }
 
-struct PeriodOfTime: Equatable {
+public struct PeriodOfTime: Equatable {
     let start: Date
     let period: PeriodIndicator
     
@@ -155,8 +155,8 @@ struct PeriodOfTime: Equatable {
     }
 }
 
-extension PeriodOfTime {
-    static func == (lhs: PeriodOfTime, rhs: PeriodOfTime) -> Bool {
+public extension PeriodOfTime {
+    public static func == (lhs: PeriodOfTime, rhs: PeriodOfTime) -> Bool {
         if lhs.start != rhs.start ||
             lhs.period != rhs.period {
             return false

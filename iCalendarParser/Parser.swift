@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Parser {
-    public func parse(input: Data) -> CalendarDescription? {
+    public func parse(input: Data) -> ICalendar? {
         guard let node = generateAST(input: input) as? Node<Component> else {
             return nil
         }

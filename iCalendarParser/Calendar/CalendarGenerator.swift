@@ -9,23 +9,23 @@
 import Foundation
 
 public struct CalendarGenerator {
-    private var calendarDescription = CalendarDescription()
+    private var iCalendar = ICalendar()
 
-    public mutating func generate(rootNode: Node<Component>) -> CalendarDescription {
+    public mutating func generate(rootNode: Node<Component>) -> ICalendar {
         addCalendarMethods(rootNode: rootNode)
-        calendarDescription.events = addEvents(rootNode: rootNode)
-        return calendarDescription
+        iCalendar.events = addEvents(rootNode: rootNode)
+        return iCalendar
     }
     
     private mutating func addCalendarMethods(rootNode: Node<Component>) {
         if let method = rootNode.childNode(name: .method) as? Node<String> {
-            calendarDescription.method = method.value
+            iCalendar.method = method.value
         }
         if let version = rootNode.childNode(name: .version) as? Node<String> {
-            calendarDescription.version = version.value
+            iCalendar.version = version.value
         }
         if let prodId = rootNode.childNode(name: .prodId) as? Node<String> {
-            calendarDescription.method = prodId.value
+            iCalendar.method = prodId.value
         }
         if let scale = rootNode.childNode(name: .calScale) as? Node<String> {
             var scaleValue: Calendar.Identifier
@@ -37,7 +37,7 @@ public struct CalendarGenerator {
                 scaleValue = .gregorian
                 break
             }
-            calendarDescription.scale = scaleValue
+            iCalendar.scale = scaleValue
         }
     }
     
